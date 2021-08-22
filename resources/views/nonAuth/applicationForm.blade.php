@@ -86,7 +86,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="control-label">Choose program</label>
+                                    <label class="control-label">Choose program Level</label>
                                     <select class="form-control">
                                         <option>-- Please select --</option>
                                     </select>
@@ -94,7 +94,25 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="control-label">Choose field os study</label>
+                                    <label class="control-label">Choose program Type</label>
+                                    <select class="form-control">
+                                        <option>-- Please select --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Choose Collage</label>
+                                    <select class="form-control">
+                                        <option>-- Please select --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Choose field of study</label>
                                     <select class="form-control">
                                         <option>-- Please select --</option>
                                     </select>

@@ -18,4 +18,8 @@ class Subject extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
+    // subject 
+    public function departements(){
+        return $this->belongsToMany('App\Departement');
+    }
 }

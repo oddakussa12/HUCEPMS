@@ -10,6 +10,8 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
 </head>
 <body class="bg-gray-100 font-sans antialiased">
@@ -32,8 +34,9 @@
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
+    
     <script>
         $(function() {
             $( "#opennavdropdown" ).on( "click", function() {
@@ -43,6 +46,8 @@
     </script>
 
     @stack('scripts')
+    @yield('script')
+
 
 </body>
 </html>
