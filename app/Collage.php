@@ -19,4 +19,8 @@ class Collage extends Model
     public function departements(){
         return $this->hasMany('App\Departement');
     }
+    // collage has many subjects
+    public function subjects(){
+        return $this->hasMany('App\Subject');
+    }
 }

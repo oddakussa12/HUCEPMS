@@ -11,14 +11,15 @@ class Subject extends Model
         'slug',
         'subject_code',
         'teacher_id',
-        'description'
+        'description',
+        'collage_id'
     ];
 
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
     }
-    // subject 
+    // subject belongs to many departements
     public function departements(){
         return $this->belongsToMany('App\Departement');
     }

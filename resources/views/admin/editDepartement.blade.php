@@ -5,7 +5,7 @@
 <div class="home">
         <div class="row">
             <div class ="col-sm-10">
-                <h4 class="text-gray-700 uppercase font-bold">Create Departement
+                <h4 class="text-gray-700 uppercase font-bold">Edit Departement
                      ( <span class="badge badge-info">{{$collage->programType->name}}</span> ,
                      <span class="badge badge-info">{{$collage->programLevel->name}}</span>)</h4>
             </div>
@@ -14,7 +14,7 @@
             </div>
         </div>
     <div class="container-fluid" style="padding:0px;margin-top:70px;max-width:600px;">
-        <form method="post" action="/create_dept">
+        <form method="post" action="/edit_dept/{{$dept->id}}">
             @csrf
             <div class="row">
                 <div class="col-sm-12">
@@ -24,7 +24,7 @@
                                 <label class="control-label">Departement name</label>
                             </div>
                             <div class = "col-sm-7">
-                                <input type="input" name="DepartementName" class="form-control" />
+                                <input type="input" name="DepartementName" class="form-control" value="{{$dept->name}}" />
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,8 @@
                     @foreach ($subjects as $subject )
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                            <input type="checkbox" name="subjects[]"  class="form-check-input" value={{$subject->id}}>
+                            <input type="checkbox" name="subjects[]"  class="form-check-input" value={{$subject->id}}
+                                {{$dept->hasAnySubject($subject->name)?'checked':''}}>
                                 {{$subject->name}}
                             </label>
                         </div>

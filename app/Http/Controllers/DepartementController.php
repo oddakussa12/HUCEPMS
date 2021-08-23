@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Departement;
 use App\Collage;
+use App\Subject;
 use Illuminate\Http\Request;
 
 class DepartementController extends Controller
@@ -20,7 +21,9 @@ class DepartementController extends Controller
     {
         $collages = Collage::all();
         $collage = Collage::where('id',$id)->first();
-        return view('admin.createDepartement',compact('collages','collage'));
+        // subjects in this collage
+        $subjects = Subject::where('collage_id',$id)->get();
+        return view('admin.createDepartement',compact('collages','collage','subjects'));
     }
 
     public function store(Request $request)
@@ -29,11 +32,13 @@ class DepartementController extends Controller
             'DepartementName' => 'required',
             'CollageName' => 'required',
         ]);
+    
 
         $departement = new Departement();
         $departement->name = $request->DepartementName;
         $departement->collage_id = $request->CollageName;
         $departement->save();
+        $departement->subjects()->sync($request->subjects);
         $notificationn = array(
             'message' =>'Departement created successfully',
             'alert-type' =>'success'
@@ -47,15 +52,37 @@ class DepartementController extends Controller
         //
     }
 
-    public function edit(Departement $departement)
+    public function edit(Departement $departement,$id)
     {
-        //
+        $collages = Collage::all();
+        $dept = Departement::where('id',$id)->first();
+        $collage = $dept->collage;
+        // $collage = Collage::where('id',$id)->first();
+        // subjects in this collage
+        $subjects = Subject::where('collage_id',$collage->id)->get();
+        // dd($subjects);
+        return view('admin.editDepartement',compact('collages','dept','collage','subjects'));
     }
 
    
-    public function update(Request $request, Departement $departement)
+    public function update(Request $request, Departement $departement,$id)
     {
-        //
+        $this->validate($request,[
+            'DepartementName' => 'required',
+            'CollageName' => 'required',
+        ]);
+    
+
+        $departement = Departement::where('id',$id)->first();
+        $departement->name = $request->DepartementName;
+        $departement->collage_id = $request->CollageName;
+        $departement->save();
+        $departement->subjects()->sync($request->subjects);
+        $notificationn = array(
+            'message' =>'Departement updated successfully',
+            'alert-type' =>'success'
+        );
+        return redirect('/departements')->with($notificationn);
     }
 
     

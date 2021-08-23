@@ -55,6 +55,11 @@ Route::get('/create_departement/{id}','DepartementController@create')->name('cre
 // reoute to create departement
 Route::post('/create_dept','DepartementController@store')->name('create_dept');
 
+// route to edit departement 
+Route::get('/edit_departement/{id}','DepartementController@edit')->name('edit_departement');
+// reoute to create departement
+Route::post('/edit_dept/{id}','DepartementController@update')->name('edit_dept');
+
 
 
 

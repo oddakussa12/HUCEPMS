@@ -34,8 +34,10 @@
                     <tr>
                         <th>{{$row}}</th>
                         <td>{{$dept->name}}</td>
-                        <td>to be implemented...</td>
-                        <td><a href="#" class="btn btn-success btn-sm" style="width:60px;">Edit</a><a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a></td>
+                        <td>{{count($dept->subjects)}}</td>
+                        <td><a href="edit_departement/{{$dept->id}}" class="btn btn-success btn-sm" style="width:60px;">Edit</a>
+                            <a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a>
+                        </td>
                       </tr>
                     @endforeach
                 </tbody>

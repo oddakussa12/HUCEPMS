@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Subject;
 use App\Teacher;
+use App\Collage;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
@@ -21,8 +22,9 @@ class SubjectController extends Controller
     public function create()
     {
         $teachers = Teacher::latest()->get();
+        $collages = Collage::all();
 
-        return view('backend.subjects.create', compact('teachers'));
+        return view('backend.subjects.create', compact('teachers','collages'));
     }
 
     public function store(Request $request)
@@ -31,6 +33,7 @@ class SubjectController extends Controller
             'name'          => 'required|string|max:255|unique:subjects',
             'subject_code'  => 'required|numeric',
             'teacher_id'    => 'required|numeric',
+            'collage_id'    => 'required',
             'description'   => 'required|string|max:255'
         ]);
 
@@ -38,6 +41,7 @@ class SubjectController extends Controller
             'name'          => $request->name,
             'slug'          => Str::slug($request->name),
             'subject_code'  => $request->subject_code,
+            'collage_id'  => $request->collage_id,
             'teacher_id'    => $request->teacher_id,
             'description'   => $request->description
         ]);
