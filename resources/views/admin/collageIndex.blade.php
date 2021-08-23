@@ -13,7 +13,8 @@
             <div class="card-header">
                 <div class="row">
                     <div class = "col-sm-6"><h5>Collages</h5></div>
-                    <div class ="col-sm-6 text-right"><a class="btn btn-secondary btn-sm" style="width:80px;color:white;">Create</a></div>
+                    <div class ="col-sm-6 text-right">
+                      <a href="/create_collage" class="btn btn-secondary btn-sm" style="width:80px;">Create</a></div>
                 </div>
             </div>
             <div class="card-body">
@@ -28,20 +29,17 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php $row = 0 ?>
+                      @foreach ($collages as $collage)
+                      <?php $row++; ?>
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Collage of Bussiness and Economics</td>
-                        <td>Regular</td>
-                        <td>Masters</td>
-                        <td><a href="#" class="btn btn-success btn-sm" style="width:60px;">Edit</a><a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a></td>
+                        <th>{{$row}}</th>
+                        <td>{{$collage->CollageName}}</td>
+                        <td>{{$collage->programType->name}}</td>
+                        <td>{{$collage->programLevel->name}}</td>
+                        <td><a href="/collage/edit/{{$collage->id}}" class="btn btn-success btn-sm" style="width:60px;">Edit</a><a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a></td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Collage of Environmental and Agricultural Science</td>
-                        <td>Summer</td>
-                        <td>Undergraduate Program</td>
-                        <td><a href="#" class="btn btn-success btn-sm" style="width:60px;">Edit</a><a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a></td>
-                      </tr>
+                      @endforeach
                     </tbody>
                 </table>
             </div>

@@ -12,7 +12,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
     <div id="app">
@@ -36,7 +36,25 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        @if(Session::has('message'))
+        var type = "{{session::get('alert-type','info')}}";
+          switch(type){
+              case 'info':
+                  toastr.info("{{session::get('message')}}");
+                  break;
+                  case 'success':
+                      toastr.success("{{session::get('message')}}");
+                      break;
+                      case 'warning':
+                          toastr.warning("{{session::get('message')}}");
+                          break;
+                          case 'error':
+                              toast.error("{{session::get('message')}}");
+          }
+        @endif
+    </script>
     <script>
         $(function() {
             $( "#opennavdropdown" ).on( "click", function() {

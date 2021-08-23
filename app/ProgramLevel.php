@@ -9,4 +9,8 @@ class ProgramLevel extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function collages(){
+        return $this->hasMany('App\Collage');
+    }
 }

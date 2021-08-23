@@ -36,7 +36,37 @@ Route::post('/addprogramtype', 'ProgramTypeController@store')->name('addprogramt
 Route::post('/editProgramType', 'ProgramTypeController@update')->name('editProgramType');
 
 // return collage dashboard
-Route::get('collages','CollageController@index')->name('collages');
+Route::get('/collages','CollageController@index')->name('collages');
+// return collage create page
+Route::get('/create_collage','CollageController@create')->name('create_collage');
+
+// create collage post request
+Route::post('/create_collage','CollageController@store')->name('create_collage');
+// return edit page for collage
+Route::get('/collage/edit/{id}','CollageController@edit');
+
+// return post request for updating collage
+Route::post('/update_collage/{id}','CollageController@update');
+
+// return departement dashboard
+Route::get('/departements','DepartementController@index')->name('departements');
+// route to create departement 
+Route::get('/create_departement/{id}','DepartementController@create')->name('create_departement');
+// reoute to create departement
+Route::post('/create_dept','DepartementController@store')->name('create_dept');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -72,7 +102,6 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
     Route::resource('parents', 'ParentsController');
     Route::resource('student', 'StudentController');
     Route::get('attendance', 'AttendanceController@index')->name('attendance.index');
-
 });
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 

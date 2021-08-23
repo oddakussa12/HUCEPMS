@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 
 class GradeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
         $classes = Grade::withCount('students')->latest()->paginate(10);
@@ -21,11 +17,7 @@ class GradeController extends Controller
         return view('backend.classes.index', compact('classes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
         $teachers = Teacher::latest()->get();
@@ -33,12 +25,6 @@ class GradeController extends Controller
         return view('backend.classes.create', compact('teachers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
