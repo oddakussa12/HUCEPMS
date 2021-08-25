@@ -14,21 +14,12 @@ use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $user = Auth::user();
@@ -38,16 +29,20 @@ class HomeController extends Controller
             $parents = Parents::latest()->get();
             $teachers = Teacher::latest()->get();
             $students = Student::latest()->get();
-
             return view('home', compact('parents','teachers','students'));
+        }
+         elseif ($user->hasRole('Teacher')) {
 
-        } elseif ($user->hasRole('Teacher')) {
+            // $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
+            // return view('home', compact('teacher'));
+            $user = Auth::user();
+            $teacher = Teacher::where('user_id',$user->id)->first();
+            // dd($teacher);
+            return view('home',compact('teacher'));
 
-            $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
 
-            return view('home', compact('teacher'));
-
-        } elseif ($user->hasRole('Parent')) {
+        }
+         elseif ($user->hasRole('Parent')) {
             
             $parents = Parents::with(['children'])->withCount('children')->findOrFail($user->parent->id); 
 

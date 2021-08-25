@@ -24,7 +24,8 @@
     @endrole
 
     @role('Teacher')
-        @include('dashboard.teacher')
+        {{-- @include('dashboard.teacher') --}}
+        @include('dashboard.teacher2')
     @endrole
 
     @role('Student')

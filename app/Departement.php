@@ -23,4 +23,7 @@ class Departement extends Model
     public function hasAnySubject($sub){
         return null !== $this->subjects()->where('name',$sub)->first();
     }
+    public function students(){
+        return $this->hasMany('App\Student');
+    }
 }

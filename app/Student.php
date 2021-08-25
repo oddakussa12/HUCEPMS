@@ -10,6 +10,7 @@ class Student extends Model
         'user_id',
         'parent_id',
         'class_id',
+        'departement_id',
         'roll_number',
         'gender',
         'phone',
@@ -31,6 +32,9 @@ class Student extends Model
     public function class() 
     {
         return $this->belongsTo(Grade::class, 'class_id');
+    }
+    public function departement(){
+        return $this->belongsTo('App\Departement');
     }
 
     public function attendances() 

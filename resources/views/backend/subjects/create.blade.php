@@ -83,7 +83,15 @@
                             Assign Teacher
                         </label>
                     </div>
-                    <div class="md:w-2/3 block text-gray-600 font-bold">
+                    @foreach ($teachers as $teacher )
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                            <input type="checkbox" name="teacher_id[]"  class="form-check-input" value={{$teacher->id}}>
+                                {{$teacher->user->name}}
+                            </label>
+                        </div>
+                    @endforeach
+                    {{-- <div class="md:w-2/3 block text-gray-600 font-bold">
                         <div class="relative">
                             <select name="teacher_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                 <option value="">--Select Teacher--</option>
@@ -98,7 +106,7 @@
                         @error('teacher_id')
                             <p class="text-red-500 text-xs font-normal italic">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="md:flex md:items-center">

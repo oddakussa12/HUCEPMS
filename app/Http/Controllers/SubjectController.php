@@ -14,7 +14,8 @@ class SubjectController extends Controller
     
     public function index()
     {
-        $subjects = Subject::with('teacher')->latest()->paginate(10);
+        // $subjects = Subject::with('teacher')->latest()->paginate(10);
+        $subjects = Subject::all();
         
         return view('backend.subjects.index', compact('subjects'));
     }
@@ -32,19 +33,32 @@ class SubjectController extends Controller
         $request->validate([
             'name'          => 'required|string|max:255|unique:subjects',
             'subject_code'  => 'required|numeric',
-            'teacher_id'    => 'required|numeric',
+            // 'teacher_id'    => 'required|numeric',
             'collage_id'    => 'required',
             'description'   => 'required|string|max:255'
         ]);
 
-        Subject::create([
-            'name'          => $request->name,
-            'slug'          => Str::slug($request->name),
-            'subject_code'  => $request->subject_code,
-            'collage_id'  => $request->collage_id,
-            'teacher_id'    => $request->teacher_id,
-            'description'   => $request->description
-        ]);
+        // Subject::create([
+        //     'name'          => $request->name,
+        //     'slug'          => Str::slug($request->name),
+        //     'subject_code'  => $request->subject_code,
+        //     'collage_id'  => $request->collage_id,
+        //     // 'teacher_id'    => $request->teacher_id,
+        //     'description'   => $request->description
+        // ]);
+        $subject = new Subject();
+        $subject->name = $request->name;
+        $subject->slug = Str::slug($request->name);
+        $subject->subject_code = $request->subject_code;
+        $subject->collage_id = $request->collage_id;
+        $subject->description = $request->description;
+
+        $subject->save();
+        $subject->teachers()->attach($request->teacher_id);
+
+
+        // $subject = new Subject();
+        // $subject->teachers()->sync()
 
         return redirect()->route('subject.index');
     }

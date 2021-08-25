@@ -60,6 +60,11 @@ Route::get('/edit_departement/{id}','DepartementController@edit')->name('edit_de
 // reoute to create departement
 Route::post('/edit_dept/{id}','DepartementController@update')->name('edit_dept');
 
+// route for teacher
+// when teacher click on specific departement
+Route::get('/teacher_departement/{dept}/{sub}','TeacherController@viewDepartement')->name('teacher_departement');
+
+
 
 
 

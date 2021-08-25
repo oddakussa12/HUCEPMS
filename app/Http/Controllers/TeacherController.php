@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Teacher;
+use App\Subject;
+use App\Departement;
+use App\Student;
+use App\Resource;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $teachers = Teacher::with('user')->latest()->paginate(10);
@@ -22,22 +23,13 @@ class TeacherController extends Controller
         return view('backend.teachers.index', compact('teachers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
         return view('backend.teachers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -80,23 +72,12 @@ class TeacherController extends Controller
         return redirect()->route('teacher.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
     public function show(Teacher $teacher)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Teacher $teacher)
     {
         $teacher = Teacher::with('user')->findOrFail($teacher->id);
@@ -104,13 +85,6 @@ class TeacherController extends Controller
         return view('backend.teachers.edit', compact('teacher'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Teacher $teacher)
     {
         $request->validate([
@@ -149,12 +123,6 @@ class TeacherController extends Controller
         return redirect()->route('teacher.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Teacher $teacher)
     {
         $user = User::findOrFail($teacher->user_id);
@@ -173,5 +141,15 @@ class TeacherController extends Controller
         }
 
         return back();
+    }
+
+    public function viewDepartement($dept,$sub){
+        $departement = Departement::where('id',$dept)->first();
+        $students = Student::where('departement_id',$dept)->get();
+        $subject = Subject::where('id',$sub)->first();
+        $resources = Resource::where('subject_id',$subject->id)->get();
+        $user = Auth::user();
+        $teacher = Teacher::where('user_id',$user->id)->first();
+        return view('teacher.departementIndex',compact('departement','students'));
     }
 }

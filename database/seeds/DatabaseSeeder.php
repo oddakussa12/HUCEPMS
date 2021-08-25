@@ -56,8 +56,8 @@ class DatabaseSeeder extends Seeder
                 'gender'            => 'male',
                 'phone'             => '0123456789',
                 'dateofbirth'       => '1993-04-11',
-                'current_address'   => 'Dhaka-1215',
-                'permanent_address' => 'Dhaka-1215',
+                'current_address'   => 'Addis-1215',
+                'permanent_address' => 'Addis-1215',
                 'created_at'        => date("Y-m-d H:i:s")
             ]
         ]);
@@ -67,8 +67,8 @@ class DatabaseSeeder extends Seeder
                 'user_id'           => $user3->id,
                 'gender'            => 'male',
                 'phone'             => '0123456789',
-                'current_address'   => 'Dhaka-1215',
-                'permanent_address' => 'Dhaka-1215',
+                'current_address'   => 'Addis-1215',
+                'permanent_address' => 'Addis-1215',
                 'created_at'        => date("Y-m-d H:i:s")
             ]
         ]);
@@ -85,12 +85,13 @@ class DatabaseSeeder extends Seeder
                 'user_id'           => $user4->id,
                 'parent_id'         => 1,
                 'class_id'          => 1,
+                'departement_id'    => 1,
                 'roll_number'       => 1,
                 'gender'            => 'male',
                 'phone'             => '0123456789',
                 'dateofbirth'       => '1993-04-11',
-                'current_address'   => 'Dhaka-1215',
-                'permanent_address' => 'Dhaka-1215',
+                'current_address'   => 'Addis-1215',
+                'permanent_address' => 'Addis-1215',
                 'created_at'        => date("Y-m-d H:i:s")
             ]
         ]);

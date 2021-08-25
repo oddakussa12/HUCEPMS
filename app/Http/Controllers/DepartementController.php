@@ -38,7 +38,10 @@ class DepartementController extends Controller
         $departement->name = $request->DepartementName;
         $departement->collage_id = $request->CollageName;
         $departement->save();
-        $departement->subjects()->sync($request->subjects);
+        foreach ($request->subjects as $subject){
+            $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
+        }
+
         $notificationn = array(
             'message' =>'Departement created successfully',
             'alert-type' =>'success'
@@ -77,7 +80,11 @@ class DepartementController extends Controller
         $departement->name = $request->DepartementName;
         $departement->collage_id = $request->CollageName;
         $departement->save();
-        $departement->subjects()->sync($request->subjects);
+        foreach ($request->subjects as $subject){
+            $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
+            // $departement->subjects()->sync($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
+        }
+        
         $notificationn = array(
             'message' =>'Departement updated successfully',
             'alert-type' =>'success'

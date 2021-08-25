@@ -19,7 +19,7 @@ class CreateSubjectsTable extends Migration
             $table->string('slug');
             $table->integer('collage_id');
             $table->unsignedBigInteger('subject_code');
-            $table->unsignedBigInteger('teacher_id');
+            // $table->unsignedBigInteger('teacher_id');
             $table->text('description');
             $table->timestamps();
         });

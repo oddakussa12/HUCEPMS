@@ -50,11 +50,19 @@
                     <h6>Please assign subjects for this departement</h6>
                     <br />
                     @foreach ($subjects as $subject )
-                        <div class="form-check-inline">
+                        <div>
                             <label class="form-check-label">
                             <input type="checkbox" name="subjects[]"  class="form-check-input" value={{$subject->id}}
                                 {{$dept->hasAnySubject($subject->name)?'checked':''}}>
-                                {{$subject->name}}
+                                {{$subject->name}} <br />
+                                @foreach ($subject->teachers as $teacher)
+                                    <div class="form-check-inline" style="margin-left:20px; margin-top:20px;">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="teacher_id{{$subject->id}}" value={{$teacher->user->id}}>
+                                            {{$teacher->user->name}}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </label>
                         </div>
                     @endforeach
