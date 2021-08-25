@@ -18,7 +18,7 @@ class CreateTeachersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->string('phone');
-            $table->date('dateofbirth');
+            // $table->date('dateofbirth');
             $table->string('current_address');
             $table->string('permanent_address');
             $table->timestamps();

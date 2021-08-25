@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
                 'user_id'           => $user2->id,
                 'gender'            => 'male',
                 'phone'             => '0123456789',
-                'dateofbirth'       => '1993-04-11',
+                // 'dateofbirth'       => '1993-04-11',
                 'current_address'   => 'Addis-1215',
                 'permanent_address' => 'Addis-1215',
                 'created_at'        => date("Y-m-d H:i:s")

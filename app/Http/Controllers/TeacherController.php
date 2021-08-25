@@ -38,7 +38,7 @@ class TeacherController extends Controller
             'password'          => 'required|string|min:8',
             'gender'            => 'required|string',
             'phone'             => 'required|string|max:255',
-            'dateofbirth'       => 'required|date',
+            // 'dateofbirth'       => 'required|date',
             'current_address'   => 'required|string|max:255',
             'permanent_address' => 'required|string|max:255'
         ]);
@@ -62,7 +62,7 @@ class TeacherController extends Controller
         $user->teacher()->create([
             'gender'            => $request->gender,
             'phone'             => $request->phone,
-            'dateofbirth'       => $request->dateofbirth,
+            // 'dateofbirth'       => $request->dateofbirth,
             'current_address'   => $request->current_address,
             'permanent_address' => $request->permanent_address
         ]);
@@ -144,12 +144,13 @@ class TeacherController extends Controller
     }
 
     public function viewDepartement($dept,$sub){
+        // dd($sub);
         $departement = Departement::where('id',$dept)->first();
         $students = Student::where('departement_id',$dept)->get();
         $subject = Subject::where('id',$sub)->first();
-        $resources = Resource::where('subject_id',$subject->id)->get();
+        $resources = Resource::where('subject_id',$sub)->get();
         $user = Auth::user();
         $teacher = Teacher::where('user_id',$user->id)->first();
-        return view('teacher.departementIndex',compact('departement','students'));
+        return view('teacher.departementIndex',compact('departement','students','resources'));
     }
 }

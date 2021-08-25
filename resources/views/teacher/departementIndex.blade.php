@@ -26,12 +26,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Chapter one</td>
-                        <td>File link</td>
-                        <td>edit, delete, update</td>
-                    </tr>
+                        <?php $row = 0; ?>
+                        @foreach ($resources as $resouce )
+                        <?php $row++; ?>
+                        <tr>
+                            <td>{{$row}}</td>
+                            <td>{{$resouce->name}}</td>
+                            <td>{{$resouce->filename}}</td>
+                            <td>edit, delete, update</td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
