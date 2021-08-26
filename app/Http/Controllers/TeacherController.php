@@ -8,6 +8,10 @@ use App\Subject;
 use App\Departement;
 use App\Student;
 use App\Resource;
+use Validator;
+use File;
+use Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -17,13 +21,11 @@ use Illuminate\Support\Str;
 class TeacherController extends Controller
 {
     public function index()
-    {
+    {   
+        // this is used by the admin
         $teachers = Teacher::with('user')->latest()->paginate(10);
-
         return view('backend.teachers.index', compact('teachers'));
-    }
-
-   
+    }   
     public function create()
     {
         return view('backend.teachers.create');
@@ -152,5 +154,61 @@ class TeacherController extends Controller
         $user = Auth::user();
         $teacher = Teacher::where('user_id',$user->id)->first();
         return view('teacher.departementIndex',compact('departement','students','resources'));
+    }
+    public function addResource(Request $request){
+        // dd($request);
+        $rules = array(
+            'subjectid' => 'required',
+            'ResourceName' => 'required',
+            'File' => 'required'
+        );
+        $error = Validator::make($request->all(),$rules);
+        if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+        $resource = new Resource();
+        $resource->subject_id = $request->subjectid;
+        $resource->name = $request->ResourceName;
+        $resource->teacher_id = Auth::user()->id;//this is not the actual teacher id
+        if($request->file('File')) 
+        {
+            $file = $request->file('File');
+            $filename = time() . '.' . $request->file('File')->extension();
+            $filePath = public_path() . '/files/uploads/';
+            $file->move($filePath, $filename);
+            $resource->filename = $filename;
+        }
+        $resource->save();
+
+        return response()->json(['success'=> 'Resource Added Successfully.']); 
+    }
+    public function updateResource(Request $request){
+        $rules = array(
+            'ResourceName' => 'required',
+            'File' => 'required'
+        );
+        $error = Validator::make($request->all(),$rules);
+        if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $resource = Resource::where('id',$request->resoid)->first();
+        $resource->name = $request->ResourceName;
+        if($request->file('File')) 
+        {
+            $file = $request->file('File');
+            $filename = time() . '.' . $request->file('File')->extension();
+            $filePath = public_path() . '/files/uploads/';
+            $file->move($filePath, $filename);
+            $resource->filename = $filename;
+        }
+        $resource->save();
+        return response()->json(['success'=> 'Resource Updated Successfully.']); 
+    }
+
+
+    
+    function getFile($filename,$name){
+        return response()->download(public_path().'/files/uploads/'.$filename,$name.'-'.$filename);
     }
 }

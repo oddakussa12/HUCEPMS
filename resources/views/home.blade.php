@@ -24,14 +24,11 @@
     @endrole
 
     @role('Teacher')
-        {{-- @include('dashboard.teacher') --}}
-        @include('dashboard.teacher2')
+        @include('dashboard.teacher')
     @endrole
 
     @role('Student')
         @include('dashboard.student')
     @endrole
-
 </div>
-
 @endsection

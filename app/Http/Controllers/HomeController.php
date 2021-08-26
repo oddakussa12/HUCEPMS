@@ -35,12 +35,10 @@ class HomeController extends Controller
 
             // $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
             // return view('home', compact('teacher'));
+            
             $user = Auth::user();
             $teacher = Teacher::where('user_id',$user->id)->first();
-            // dd($teacher);
-            return view('home',compact('teacher'));
-
-
+            return view('teacher.teacherHome',compact('teacher'));
         }
          elseif ($user->hasRole('Parent')) {
             

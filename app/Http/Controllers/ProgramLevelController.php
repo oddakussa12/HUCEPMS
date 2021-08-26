@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ProgramLevel;
 use App\ProgramType;
+
 use Illuminate\Http\Request;
 use Validator;
 
@@ -38,6 +39,8 @@ class ProgramLevelController extends Controller
             'name' => $request->ProgramLevel,
         ); 
         ProgramLevel::create($form_data);
+        
+
         return response()->json(['success'=> 'Program Level Added Successfully.']); 
     }
 

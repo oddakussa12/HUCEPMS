@@ -63,7 +63,12 @@ Route::post('/edit_dept/{id}','DepartementController@update')->name('edit_dept')
 // route for teacher
 // when teacher click on specific departement
 Route::get('/teacher_departement/{dept}/{sub}','TeacherController@viewDepartement')->name('teacher_departement');
-
+// route to add resource
+Route::post('/addresource', 'TeacherController@addResource')->name('addresource');
+// to download a file
+Route::get('get/{filename}/{name}', 'TeacherController@getFile')->name('getfile');
+// update resources
+Route::post('/update_resource', 'TeacherController@updateResource')->name('update_resource');
 
 
 
