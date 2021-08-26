@@ -69,6 +69,8 @@ Route::post('/addresource', 'TeacherController@addResource')->name('addresource'
 Route::get('get/{filename}/{name}', 'TeacherController@getFile')->name('getfile');
 // update resources
 Route::post('/update_resource', 'TeacherController@updateResource')->name('update_resource');
+// bulk insert exam results
+Route::post('/insert_result', 'TeacherController@bulkInsertExamResult')->name('insert_result');
 
 
 

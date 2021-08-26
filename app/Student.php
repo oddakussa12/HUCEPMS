@@ -36,7 +36,7 @@ class Student extends Model
     public function departement(){
         return $this->belongsTo('App\Departement');
     }
-
+    
     public function attendances() 
     {
         return $this->hasMany(Attendance::class);

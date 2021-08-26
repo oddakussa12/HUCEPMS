@@ -30,6 +30,8 @@ class Subject extends Model
     public function resources(){
         return $this->hasMany('App\Resource');
     }
-    
+    public function assesement(){
+        return $this->hasOne('App\Assesement');
+    }
 
 }

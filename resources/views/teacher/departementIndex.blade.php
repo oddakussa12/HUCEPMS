@@ -2,6 +2,8 @@
 
 @section('content')
 @include('/backend/modals/teacher/editResource')
+@include('/backend/modals/teacher/insertExamResult')
+
 <div class="home">
     <div class="row">
         <div class="col-sm-8">
@@ -64,7 +66,18 @@
                         <th scope="col">Assignment One</th>
                         <th scope="col">Assignment Two</th>
                         <th scope="col">Final Exam</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Grade</th>
                         <th scope="col">Action</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" ></th>
+                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
+                        <th>Insert</th>
+                        <th>Insert</th>
+                        <th>Insert</th>
+                        <th>Insert</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,6 +85,8 @@
                             <tr>
                                 <td>1</td>
                                 <td>{{$student->user->name}}</td>
+                                <td scope="col"></td>
+                                <td scope="col">0</td>
                                 <td scope="col">0</td>
                                 <td scope="col">0</td>
                                 <td scope="col">0</td>
@@ -141,6 +156,53 @@
                     }
                     // render error or success message in html variable to span element with id value form_result
                     $('#form_result_edit_resource').html(html);
+                }
+            })
+        }
+    });
+</script>
+{{-- script to insert exam result --}}
+<script>
+    // show modal
+    $('.insertBut').click(function(){
+        $('#insertExamResultModal').modal('show');
+    });
+    // implementation submit button cliced from modal
+    $('#insert_exam_result_form').on('submit', function(event){
+        event.preventDefault();
+        if($('#InsertResult').val() == 'Insert Result'){
+            $.ajax({
+                url:"{{ route('insert_result') }}",
+                method:"POST",
+                data: new FormData(this),
+                contentType:false,
+                cache:false,
+                processData:false,
+                dataType:'json',
+                beforeSend: function()
+                {   
+                    $('#InsertResult').html('<i class="fa fa-circle-o-notch fa-spin"></i>');                            
+                },
+                success:function(data){
+                    var html = '';
+                    if(data.errors){
+                        html = '<div class="alert alert-danger alert-block">';
+                        for(var count = 0; count<data.errors.length; count++){
+                            html += '<p>' + data.errors[count] + '</p>';
+                        }
+                        html += '</div>';
+                        $('#InsertResult').html('Submit');
+                    }
+                    if(data.success){
+                        html = '<div class = "alert alert-success alert-block">'
+                        + data.success + '<button type="button" class="close" data-dismiss="alert">x</button</div>';
+                        // empty form field values  
+                        $('#insert_exam_result_form')[0].reset();
+                        $('#InsertResult').html('Submit');
+  
+                    }
+                    // render error or success message in html variable to span element with id value form_result
+                    $('#form_result_insert_result').html(html);
                 }
             })
         }

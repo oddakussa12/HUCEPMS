@@ -8,10 +8,13 @@ use App\Subject;
 use App\Departement;
 use App\Student;
 use App\Resource;
+use App\Assesement;
 use Validator;
 use File;
 use Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -153,7 +156,7 @@ class TeacherController extends Controller
         $resources = Resource::where('subject_id',$sub)->get();
         $user = Auth::user();
         $teacher = Teacher::where('user_id',$user->id)->first();
-        return view('teacher.departementIndex',compact('departement','students','resources'));
+        return view('teacher.departementIndex',compact('departement','students','resources','subject'));
     }
     public function addResource(Request $request){
         // dd($request);
@@ -204,11 +207,22 @@ class TeacherController extends Controller
         }
         $resource->save();
         return response()->json(['success'=> 'Resource Updated Successfully.']); 
-    }
-
-
-    
-    function getFile($filename,$name){
+    }    
+    public function getFile($filename,$name){
         return response()->download(public_path().'/files/uploads/'.$filename,$name.'-'.$filename);
     }
+    public function bulkInsertExamResult(Request $request){
+        // Log::info($request->stud_id);
+        $size = sizeOf($request->stud_id);
+        for($i=0 ; $i<$size ; $i++) {
+            $assesement = new Assesement();
+            $assesement->subject_id = $request->subjectid;
+            $assesement->student_id = $request->stud_id[$i];
+            $assesement->testOne = $request->ExamResult[$i];
+            $assesement->save();
+        }
+        return response()->json(['success'=> 'Exam result recorded successfully.']); 
+    }
+
+
 }
