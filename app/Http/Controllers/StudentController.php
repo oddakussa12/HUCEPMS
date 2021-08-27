@@ -6,6 +6,7 @@ use App\User;
 use App\Grade;
 use App\Parents;
 use App\Student;
+use App\Departement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -25,9 +26,10 @@ class StudentController extends Controller
     public function create()
     {
         $classes = Grade::latest()->get();
+        $departements = Departement::latest()->get();
         $parents = Parents::with('user')->latest()->get();
         
-        return view('backend.students.create', compact('classes','parents'));
+        return view('backend.students.create', compact('classes','parents','departements'));
     }
 
     public function store(Request $request)
@@ -36,20 +38,22 @@ class StudentController extends Controller
             'name'              => 'required|string|max:255',
             'email'             => 'required|string|email|max:255|unique:users',
             'password'          => 'required|string|min:8',
-            'parent_id'         => 'required|numeric',
-            'class_id'          => 'required|numeric',
-            'roll_number'       => [
-                'required',
-                'numeric',
-                Rule::unique('students')->where(function ($query) use ($request) {
-                    return $query->where('class_id', $request->class_id);
-                })
-            ],
+            // 'parent_id'         => 'required|numeric',
+            // 'class_id'          => 'required|numeric',
+            'departement_id'          => 'required|numeric',
+            
+            // 'roll_number'       => [
+            //     'required',
+            //     'numeric',
+            //     Rule::unique('students')->where(function ($query) use ($request) {
+            //         return $query->where('class_id', $request->class_id);
+            //     })
+            // ],
             'gender'            => 'required|string',
             'phone'             => 'required|string|max:255',
-            'dateofbirth'       => 'required|date',
-            'current_address'   => 'required|string|max:255',
-            'permanent_address' => 'required|string|max:255'
+            // 'dateofbirth'       => 'required|date',
+            // 'current_address'   => 'required|string|max:255',
+            // 'permanent_address' => 'required|string|max:255'
         ]);
 
         $user = User::create([
@@ -69,14 +73,15 @@ class StudentController extends Controller
         ]);
 
         $user->student()->create([
-            'parent_id'         => $request->parent_id,
-            'class_id'          => $request->class_id,
-            'roll_number'       => $request->roll_number,
+            // 'parent_id'         => $request->parent_id,
+            // 'class_id'          => $request->class_id,
+            'departement_id'          => $request->departement_id,
+            // 'roll_number'       => $request->roll_number,
             'gender'            => $request->gender,
             'phone'             => $request->phone,
-            'dateofbirth'       => $request->dateofbirth,
-            'current_address'   => $request->current_address,
-            'permanent_address' => $request->permanent_address
+            // 'dateofbirth'       => $request->dateofbirth,
+            // 'current_address'   => $request->current_address,
+            // 'permanent_address' => $request->permanent_address
         ]);
 
         $user->assignRole('Student');

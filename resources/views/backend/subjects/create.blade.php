@@ -15,10 +15,10 @@
             </div>
         </div>
 
-        <div class="table w-full mt-8 bg-white rounded">
-            <form action="{{ route('subject.store') }}" method="POST" class="w-full max-w-xl px-6 py-12">
+        <div class="table w-full mt- bg-white rounded">
+            <form action="{{ route('subject.store') }}" method="POST" class="container">
                 @csrf
-                <div class="md:flex md:items-center mb-6">
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Subject Name
@@ -30,15 +30,46 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
+                </div> --}}
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-sm-4">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Subject Name
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input name="name" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ old('name') }}">
+                        @error('name')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-sm-4">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Collage
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="collage_id">
+                            <option selected disabled>-- Please Select --</option>
+                            @foreach ($collages as $collage )
+                                 <option value={{$collage->id}}>{{$collage->CollageName}}</option>
+                            @endforeach
+                        </select>
+                        @error('collage_id')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Collage
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        {{-- <input name="collage_id" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ old('name') }}"> --}}
+                        
                         <select class="form-control" name="collage_id">
                             <option selected disabled>-- Please Select --</option>
                             @foreach ($collages as $collage )
@@ -50,8 +81,22 @@
                         @enderror
                     </div>
 
+                </div> --}}
+                <div class="row"style="margin-top:30px;">
+                    <div class="col-sm-4">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Subject Code
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input name="subject_code" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="number" value="{{ old('subject_code') }}">
+                        @error('subject_code')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Subject Code
@@ -63,8 +108,21 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
+                </div> --}}
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-sm-4">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Subject Description
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input name="description" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ old('description') }}">
+                        @error('description')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Subject Description
@@ -76,8 +134,25 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
+                </div> --}}
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-sm-4">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Assign Teacher
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        @foreach ($teachers as $teacher )
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                <input type="checkbox" name="teacher_id[]"  class="form-check-input" value={{$teacher->id}}>
+                                    {{$teacher->user->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Assign Teacher
@@ -90,7 +165,7 @@
                                 {{$teacher->user->name}}
                             </label>
                         </div>
-                    @endforeach
+                    @endforeach --}}
                     {{-- <div class="md:w-2/3 block text-gray-600 font-bold">
                         <div class="relative">
                             <select name="teacher_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
@@ -107,9 +182,9 @@
                             <p class="text-red-500 text-xs font-normal italic">{{ $message }}</p>
                         @enderror
                     </div> --}}
-                </div>
+                {{-- </div> --}}
 
-                <div class="md:flex md:items-center">
+                <div class="md:flex md:items-center" style="margin-top:30px;">
                     <div class="md:w-1/3"></div>
                     <div class="md:w-2/3">
                         <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">

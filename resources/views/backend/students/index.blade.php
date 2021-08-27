@@ -17,7 +17,7 @@
             <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-300 text-gray-600 rounded-tl rounded-tr">
                 <div class="w-3/12 px-4 py-3">Name</div>
                 <div class="w-3/12 px-4 py-3">Email</div>
-                <div class="w-2/12 px-4 py-3">Class</div>
+                <div class="w-2/12 px-4 py-3">Departement</div>
                 <div class="w-2/12 px-4 py-3">Phone</div>
                 <div class="w-2/12 px-4 py-3 text-right">Action</div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-l-4 border-r-4 border-gray-300">
                     <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $student->user->name }}</div>
                     <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $student->user->email }}</div>
-                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $student->class->class_name ?? '' }}</div>
+                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $student->departement->name ?? '' }}</div>
                     <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $student->phone }}</div>
                     <div class="w-2/12 flex items-center justify-end px-3">
                         <a href="{{ route('student.show',$student->id) }}" class="ml-1 bg-gray-600 block p-1 border border-gray-600 rounded-sm" title="assign subject">

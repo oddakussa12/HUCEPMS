@@ -70,13 +70,13 @@
                         <th scope="col">Grade</th>
                         <th scope="col">Action</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center">
                         <th colspan="2" ></th>
                         <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
-                        <th>Insert</th>
-                        <th>Insert</th>
-                        <th>Insert</th>
-                        <th>Insert</th>
+                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
+                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
+                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
+                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
                         <th></th>
                     </tr>
                     </thead>
