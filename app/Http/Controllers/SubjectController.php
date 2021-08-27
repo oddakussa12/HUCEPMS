@@ -32,10 +32,11 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name'          => 'required|string|max:255|unique:subjects',
-            'subject_code'  => 'required|numeric',
+            'subject_code'  => 'required|numeric|unique:subjects',
             // 'teacher_id'    => 'required|numeric',
             'collage_id'    => 'required',
-            'description'   => 'required|string|max:255'
+            'description'   => 'required|string|max:255',
+            'credit_hr'     => 'required|numeric'
         ]);
 
         // Subject::create([
@@ -52,6 +53,7 @@ class SubjectController extends Controller
         $subject->subject_code = $request->subject_code;
         $subject->collage_id = $request->collage_id;
         $subject->description = $request->description;
+        $subject->credit_hr = $request->credit_hr;
 
         $subject->save();
         $subject->teachers()->attach($request->teacher_id);
@@ -66,7 +68,6 @@ class SubjectController extends Controller
     
     public function show(Subject $subject)
     {
-        //
     }
 
    

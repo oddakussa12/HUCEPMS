@@ -25,12 +25,14 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php $row = 0; ?>
                       @foreach ($student->departement->subjects as $subject )
+                      <?php $row++; ?>
                         <tr>
-                          <th scope="row">1</th>
+                          <th scope="row">{{$row}}</th>
                           <td>{{$subject->subject_code}}</td>
                           <td>{{$subject->name}}</td>
-                          <td>3</td>
+                          <td>{{$subject->credit_hr}}</td>
                           <td><a href="/course_details/{{$subject->id}}">View</a></td>
                         </tr>
                       @endforeach

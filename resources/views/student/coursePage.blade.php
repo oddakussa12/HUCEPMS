@@ -20,21 +20,25 @@
             <div class="card-body">
                 <table class="table table-hover">
                     <thead>
-                      <tr>
-                        <th scope="col">Test one (15%)</th>
-                        <th scope="col">Test two (15%)</th>
-                        <th scope="col">Assignment (20%)</th>
-                        <th scope="col">Final Exam (50%)</th>
+                      <tr class="text-center">
+                        <th scope="col">Test one</th>
+                        <th scope="col">Test two</th>
+                        <th scope="col">Assignment one</th>
+                        <th scope="col">Assignment two</th>
+                        <th scope="col">Final Exam</th>
                         <th scope="col">Total (100%)</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>12</td>
-                        <td>14</td>
-                        <td>18</td>
-                        <td>42</td>
-                        <td>86</td>
+                      <tr class="text-center">
+                        @isset($assesement)
+                        <td><span class="badge badge-success">{{$assesement->testOne}}</span></td>
+                        <td><span class="badge badge-success">14</span></td>
+                        <td><span class="badge badge-success">18</span></td>
+                        <td><span class="badge badge-success">14</span></td>
+                        <td><span class="badge badge-success">42</span></td>
+                        <td><span class="badge badge-success">86</span></td>
+                        @endisset
                       </tr>
                     </tbody>
                 </table>

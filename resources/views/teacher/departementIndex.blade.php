@@ -81,11 +81,13 @@
                     </tr>
                     </thead>
                     <tbody>
+                        <?php $row = 0 ?>
                         @foreach ($students as $student )
-                            <tr>
-                                <td>1</td>
-                                <td>{{$student->user->name}}</td>
-                                <td scope="col"></td>
+                        <?php $row++; ?>
+                            <tr class="text-center">
+                                <td>{{$row}}</td>
+                                <td class="text-left">{{$student->user->name}}</td>
+                                <td scope="col">0</td>
                                 <td scope="col">0</td>
                                 <td scope="col">0</td>
                                 <td scope="col">0</td>

@@ -47,11 +47,24 @@
                 <div class="row" style="margin-top:30px;">
                     <div class="col-sm-4">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Credit hr.
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input name="credit_hr" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="number" value="{{ old('credit_hr') }}">
+                        @error('credit_hr')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-sm-4">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Collage
                         </label>
                     </div>
                     <div class="col-sm-6">
-                        <select class="form-control" name="collage_id">
+                        <select class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" name="collage_id">
                             <option selected disabled>-- Please Select --</option>
                             @foreach ($collages as $collage )
                                  <option value={{$collage->id}}>{{$collage->CollageName}}</option>

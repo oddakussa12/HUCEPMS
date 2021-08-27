@@ -21,6 +21,7 @@ class CreateSubjectsTable extends Migration
             $table->unsignedBigInteger('subject_code');
             // $table->unsignedBigInteger('teacher_id');
             $table->text('description');
+            $table->integer('credit_hr');
             $table->timestamps();
         });
     }

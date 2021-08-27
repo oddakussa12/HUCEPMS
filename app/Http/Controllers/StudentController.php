@@ -191,9 +191,9 @@ class StudentController extends Controller
         // dd($resources);
         $student_id = Auth::user()->id;
         // dd($student_id);
-        $assesement = Assesement::where('subject_id',$id)->where('student_id',$student_id)->get();
+        $assesement = Assesement::where('subject_id',$id)->where('student_id',$student_id)->first();
         // dd($assesement);
-        return view('student.coursePage',compact('resources','assesement','subject'));
+        return view('student.coursePage',compact('resources','assesement','subject','assesement'));
     }
 
 }
