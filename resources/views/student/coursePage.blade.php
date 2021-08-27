@@ -5,10 +5,10 @@
 <div class="home">
     <div class="row">
         <div class="col-sm-8">
-            <h6 class="text-gray-700 uppercase font-bold">Fundamental of Programming</h6>
+            <h6 class="text-gray-700 uppercase font-bold">{{$subject->name}}</h6>
         </div>
         <div class="col-sm-4 text-right">
-            <a href="student_courses" class="btn btn-secondary btn-sm" style="width:80px;">Back</a>
+            <a href="/student_courses" class="btn btn-secondary btn-sm" style="width:80px;">Back</a>
         </div>
     </div>
         
@@ -51,29 +51,23 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Document Name</th>
+                        <th scope="col">File</th>
                         <th scope="col">Uploaded Date</th>
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Chapter one</td>
-                        <td>12-june-2021</td>
-                        <td><a href="#">Download</a></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Chapter two</td>
-                        <td>2-augest-2021</td>
-                        <td><a href="#">Download</a></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Assignment</td>
-                        <td>22-july-2021</td>
-                        <td><a href="#">Download</a></td>
-                      </tr>
+                      <?php $row = 0 ; ?>
+                      @foreach ($resources as $resource )
+                      <?php $row++ ; ?>
+                        <tr>
+                          <th scope="row">{{$row}}</th>
+                          <td>{{$resource->name}}</td>
+                          <td>{{$resource->filename}}</td>
+                          <td>{{$resource->created_at}}</td>
+                          <td><a href="/get/{{$resource->filename}}/{{$resource->name}}" class="btn btn-success btn-sm">Download</a></td>
+                        </tr>
+                      @endforeach
                     </tbody>
                 </table>
             </div>

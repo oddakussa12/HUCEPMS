@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::get('/nonAuthHome','NonAuthController@index')->name('nonAuthHome');
 Route::get('/applicationForm','NonAuthController@getApplicationForm')->name('applicationForm');
 Route::get('/student_courses','StudentController@getStudentCourses')->name('student_courses');
-Route::get('/course_details','StudentController@getCourse')->name('course_details');
+Route::get('/course_details/{id}','StudentController@getCourse')->name('course_details');
 
 // route for Admin
 // return study program dashboard

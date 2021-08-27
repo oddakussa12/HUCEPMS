@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Grade;
+use Auth;
 use App\Parents;
 use App\Student;
 use App\Departement;
+use App\Assesement;
+use App\Subject;
+use App\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -174,11 +178,22 @@ class StudentController extends Controller
 
     // return student course page for student
     public function getStudentCourses(){
-        return view('student.courses');
+        // dd(Auth::user()->id);
+        $student = Student::where('user_id',Auth::user()->id)->first();
+        // dd($student->departement);
+        return view('student.courses',compact('student'));
     }
     // return each course page for student
 
-    public function getCourse(){
-        return view('student.coursePage');
+    public function getCourse($id){
+        $resources = Resource::where('subject_id',$id)->get();
+        $subject = Subject::where('id',$id)->first();
+        // dd($resources);
+        $student_id = Auth::user()->id;
+        // dd($student_id);
+        $assesement = Assesement::where('subject_id',$id)->where('student_id',$student_id)->get();
+        // dd($assesement);
+        return view('student.coursePage',compact('resources','assesement','subject'));
     }
+
 }
