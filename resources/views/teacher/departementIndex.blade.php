@@ -7,7 +7,7 @@
 <div class="home">
     <div class="row">
         <div class="col-sm-8">
-            <h4 class="text-gray-700 uppercase font-bold">{{$departement->name}}</h4>
+            <h4 class="text-gray-700 uppercase">Departement of {{$departement->name}}</h4>
         </div>
         <div class="col-sm-4 text-right">
             <a href="/home" class="btn btn-secondary btn-sm" style="width:80px;">Back</a>
@@ -16,7 +16,7 @@
     <div class="container-fluid" style="padding:0px;margin-top:30px;">
         <div class="card">
             <div class="card-header">
-                <h6>Course Materials</h6>
+                <h6><span class="badge badge-warning">{{$subject->name}}</span> - Course Materials</h6>
             </div>
             <div class="card-body">
                 <table class="table table-hover">

@@ -3,6 +3,11 @@
 @section('content')
 @include('/backend/modals/teacher/addResource')
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>DASHBOARD</h4>
+            </div>
+        </div>
         @foreach ($teacher->subjects as $subject)
         <br />
             <div class="container card" style="padding:20px;">

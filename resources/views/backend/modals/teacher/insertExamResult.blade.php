@@ -17,13 +17,13 @@
               {{-- <div > --}}
                 @foreach ($students as $student )
                     <div class="form-group">
-                        <div class = "row">
+                        <div class = "row text-right">
                             <div class="col-sm-6">
                                 <label>{{$student->user->name}}</label>
                             </div>
                             <div class="col-sm-6">
                                 <input type="hidden" name="stud_id[]" value={{$student->id}} />
-                                <input type="text" class="form-control" name="ExamResult[]" id="ExamResult">
+                                <input type="number" style="width:80px;" class="form-control input-sm" name="ExamResult[]" id="ExamResult">
                             </div>
                         </div>
                     </div>

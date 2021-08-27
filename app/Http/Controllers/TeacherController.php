@@ -154,8 +154,7 @@ class TeacherController extends Controller
         $students = Student::where('departement_id',$dept)->get();
         $subject = Subject::where('id',$sub)->first();
         $resources = Resource::where('subject_id',$sub)->get();
-        $user = Auth::user();
-        $teacher = Teacher::where('user_id',$user->id)->first();
+        
         return view('teacher.departementIndex',compact('departement','students','resources','subject'));
     }
     public function addResource(Request $request){
@@ -213,6 +212,15 @@ class TeacherController extends Controller
     }
     public function bulkInsertExamResult(Request $request){
         // Log::info($request->stud_id);
+        $rules = array(
+            'ExamResult' => 'required|numeric',
+
+        );
+        $error = Validator::make($request->all(),$rules);
+        if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
         $size = sizeOf($request->stud_id);
         for($i=0 ; $i<$size ; $i++) {
             $assesement = new Assesement();
@@ -223,6 +231,4 @@ class TeacherController extends Controller
         }
         return response()->json(['success'=> 'Exam result recorded successfully.']); 
     }
-
-
 }
