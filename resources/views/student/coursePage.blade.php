@@ -20,25 +20,21 @@
             <div class="card-body">
                 <table class="table table-hover">
                     <thead>
-                      <tr class="text-center">
-                        <th scope="col">Test one</th>
-                        <th scope="col">Test two</th>
-                        <th scope="col">Assignment one</th>
-                        <th scope="col">Assignment two</th>
-                        <th scope="col">Final Exam</th>
+                      <tr scope="row">
+                       @foreach ($subject->exams as $subjectExam )
+                         <th scope="col">{{$subjectExam->name}}</th>
+                       @endforeach
                         <th scope="col">Total (100%)</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="text-center">
-                        @isset($assesement)
-                        <td><span class="badge badge-success">{{$assesement->testOne}}</span></td>
-                        <td><span class="badge badge-success">14</span></td>
-                        <td><span class="badge badge-success">18</span></td>
-                        <td><span class="badge badge-success">14</span></td>
-                        <td><span class="badge badge-success">42</span></td>
-                        <td><span class="badge badge-success">86</span></td>
-                        @endisset
+                      <tr scope="row">
+                        <?php $total = 0;?>
+                        @foreach ($subjectExams as $subjectExam)
+                            <td scope="col">{{$subjectExam->pivot->mark}}</td>
+                            <?php $total = $total + $subjectExam->pivot->mark ?>
+                        @endforeach
+                        <td scope="col">{{$total}}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -78,8 +74,6 @@
         </div>
         
     </div>
-    
-
 </div>
 
 @endsection

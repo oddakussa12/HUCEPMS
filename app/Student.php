@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+use App\Assesement;
+use App\Subject;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,5 +42,10 @@ class Student extends Model
     public function attendances() 
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function exams(){
+        return $this->belongsToMany('App\Exam')
+        ->withPivot(['mark']);
     }
 }

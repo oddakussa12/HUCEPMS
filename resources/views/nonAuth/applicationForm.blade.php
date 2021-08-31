@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-center">
-                        <h3>Haromaya University Admission Recommendation Form</h3>
+                        <h3>Application Form</h3>
                     </div>
                 </div>
             </div>
@@ -139,15 +139,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
-                                <label class="control-label">Grade eight ceretefication</label>
-                                <input type="file" class="form-control-file border">
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="control-label">Grade ten ceretefication</label>
-                                <input type="file" class="form-control-file border">
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="control-label">Grade twelve ceretefication</label>
+                                <label class="control-label">Attach file below:</label>
                                 <input type="file" class="form-control-file border">
                             </div>
                         </div>

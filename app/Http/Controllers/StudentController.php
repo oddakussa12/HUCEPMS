@@ -186,14 +186,19 @@ class StudentController extends Controller
     // return each course page for student
 
     public function getCourse($id){
+        // dd($id);
         $resources = Resource::where('subject_id',$id)->get();
         $subject = Subject::where('id',$id)->first();
         // dd($resources);
-        $student_id = Auth::user()->id;
-        // dd($student_id);
-        $assesement = Assesement::where('subject_id',$id)->where('student_id',$student_id)->first();
-        // dd($assesement);
-        return view('student.coursePage',compact('resources','assesement','subject','assesement'));
+        $user_id = Auth::user()->id;
+        $student = Student::where('user_id',$user_id)->first();
+        $subjectExams = $student->exams->where('subject_id',$id);
+        // dd($subjectExams);
+        // foreach($subjectExams as $subjectExam){
+        //     dd($subjectExam->pivot->mark);
+        // }
+        
+        return view('student.coursePage',compact('resources','subjectExams','subject',));
     }
 
 }

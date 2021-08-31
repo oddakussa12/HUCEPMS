@@ -8,7 +8,7 @@ use App\Subject;
 use App\Departement;
 use App\Student;
 use App\Resource;
-use App\Assesement;
+use App\Exam;
 use Validator;
 use File;
 use Response;
@@ -149,12 +149,10 @@ class TeacherController extends Controller
     }
 
     public function viewDepartement($dept,$sub){
-        // dd($sub);
         $departement = Departement::where('id',$dept)->first();
         $students = Student::where('departement_id',$dept)->get();
         $subject = Subject::where('id',$sub)->first();
         $resources = Resource::where('subject_id',$sub)->get();
-        
         return view('teacher.departementIndex',compact('departement','students','resources','subject'));
     }
     public function addResource(Request $request){
@@ -211,24 +209,57 @@ class TeacherController extends Controller
         return response()->download(public_path().'/files/uploads/'.$filename,$name.'-'.$filename);
     }
     public function bulkInsertExamResult(Request $request){
-        // Log::info($request->stud_id);
-        $rules = array(
-            'ExamResult' => 'required|numeric',
+        // Log::info($request->examId);
 
+        $rules = array(
+            'ExamResult' => 'required',
         );
         $error = Validator::make($request->all(),$rules);
         if($error->fails()){
             return response()->json(['errors' => $error->errors()->all()]);
         }
 
-        $size = sizeOf($request->stud_id);
-        for($i=0 ; $i<$size ; $i++) {
-            $assesement = new Assesement();
-            $assesement->subject_id = $request->subjectid;
-            $assesement->student_id = $request->stud_id[$i];
-            $assesement->testOne = $request->ExamResult[$i];
-            $assesement->save();
+        $studentSize = sizeOf($request->stud_id);
+        $exam = Exam::find($request->examId);
+        for($i=0 ; $i<$studentSize ; $i++){
+            $exam->students()->attach($request->stud_id[$i],['mark' => $request->ExamResult[$i]]);
         }
         return response()->json(['success'=> 'Exam result recorded successfully.']); 
+    }
+    public function bulkUpdateExamResult(Request $request){
+        Log::info($request->examId);
+
+        $rules = array(
+            'ExamResult' => 'required',
+        );
+        $error = Validator::make($request->all(),$rules);
+        if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $studentSize = sizeOf($request->stud_id);
+        $exam = Exam::find($request->examId);
+        for($i=0 ; $i<$studentSize ; $i++){
+            $exam->students()->updateExistingPivot($request->stud_id[$i], ['mark' => $request->ExamResult[$i]]);
+        }
+        return response()->json(['success'=> 'Exam result has been updated successfully.']); 
+    }
+
+    public function createAssesement (Request $request){
+        $rules = array(
+            'subjectid' => 'required',
+            'AssesementName' => 'required',
+        );
+        $error = Validator::make($request->all(),$rules);
+        if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $exam = Exam::create([
+            'name'        => $request->AssesementName,
+            'subject_id'  => $request->subjectid
+        ]);
+
+        return response()->json(['success'=> 'Assesement has been created successfully.']); 
     }
 }

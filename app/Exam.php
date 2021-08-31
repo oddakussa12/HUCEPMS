@@ -4,13 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Assesement extends Model
+class Exam extends Model
 {
     protected $fillable = [
-        'subject_id','student_id','testOne','testTwo','assignOne','assignTwo',
-        'finalExam','total','grade'
+        'name','subject_id'
     ];
+
     public function subject(){
         return $this->belongsTo('App\Subject');
+    }
+    public function students(){
+        return $this->belongsToMany('App\Student');
     }
 }

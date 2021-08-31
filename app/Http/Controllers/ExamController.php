@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Assesement;
+use App\Exam;
 use Illuminate\Http\Request;
 
-class AssesementController extends Controller
+class ExamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class AssesementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Assesement  $assesement
+     * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function show(Assesement $assesement)
+    public function show(Exam $exam)
     {
         //
     }
@@ -52,10 +52,10 @@ class AssesementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Assesement  $assesement
+     * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function edit(Assesement $assesement)
+    public function edit(Exam $exam)
     {
         //
     }
@@ -64,10 +64,10 @@ class AssesementController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Assesement  $assesement
+     * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Assesement $assesement)
+    public function update(Request $request, Exam $exam)
     {
         //
     }
@@ -75,10 +75,10 @@ class AssesementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Assesement  $assesement
+     * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assesement $assesement)
+    public function destroy(Exam $exam)
     {
         //
     }

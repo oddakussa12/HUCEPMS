@@ -3,6 +3,7 @@
 @section('content')
 @include('/backend/modals/teacher/editResource')
 @include('/backend/modals/teacher/insertExamResult')
+@include('/backend/modals/teacher/updateExamResult')
 
 <div class="home">
     <div class="row">
@@ -51,50 +52,40 @@
                 </table>
             </div>
         </div>
-        <div class="card" style="margin-top:30px;">
+        <div class = "card" style="margin-top:30px;">
             <div class="card-header">
                 <h6>Students</h6>
             </div>
             <div class="card-body">
                 <table class="table table-hover">
                     <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Student Name</th>
-                        <th scope="col">Test One</th>
-                        <th scope="col">Test Two</th>
-                        <th scope="col">Assignment One</th>
-                        <th scope="col">Assignment Two</th>
-                        <th scope="col">Final Exam</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Grade</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    <tr class="text-center">
-                        <th colspan="2" ></th>
-                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
-                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
-                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
-                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
-                        <th><a href="#" class="btn btn-success btn-sm insertBut">Insert</a></th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th>Student Name</th>
+                            @foreach ($subject->exams as $exam )
+                                <th>{{$exam->name}} <br />
+                                    <a href="#" class="btn btn-success btn-sm insertBut" data-examid={{$exam->id}}
+                                        style="margin-top:10px;" >Record
+                                    </a>
+                                    <a href="#" class="btn btn-success btn-sm updateBut" data-updateexamid={{$exam->id}}
+                                        style="margin-top:10px;" >Update</a>
+                                    </a>
+                                </th>
+                            @endforeach
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <?php $row = 0 ?>
                         @foreach ($students as $student )
-                        <?php $row++; ?>
-                            <tr class="text-center">
-                                <td>{{$row}}</td>
-                                <td class="text-left">{{$student->user->name}}</td>
-                                <td scope="col">0</td>
-                                <td scope="col">0</td>
-                                <td scope="col">0</td>
-                                <td scope="col">0</td>
-                                <td scope="col">0</td>
-                                <td scope="col">0</td>
-                                <td scope="col">0</td>
-                                <td>edit,Delete</td>
+                            <tr>
+                                <td>{{$student->user->name}}</td>
+                                <?php $total = 0; ?>
+                                @foreach ($student->exams->where('subject_id',$subject->id) as $subjectExam )
+                                    <td>{{$subjectExam->pivot->mark}}</td>
+                                    <?php $total = $total + $subjectExam->pivot->mark; ?>
+                                @endforeach
+                                <td>{{$total}}</td>
+                                <td><a href="#" class="btn btn-primary btn-sm" >Edit</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -168,6 +159,9 @@
     // show modal
     $('.insertBut').click(function(){
         $('#insertExamResultModal').modal('show');
+        // set the exam id
+        var examId = $(this).data("examid");
+        $('#hidenExamId').val(examId);
     });
     // implementation submit button cliced from modal
     $('#insert_exam_result_form').on('submit', function(event){
@@ -205,6 +199,57 @@
                     }
                     // render error or success message in html variable to span element with id value form_result
                     $('#form_result_insert_result').html(html);
+                }
+            })
+        }
+    });
+</script>
+
+{{-- script to update exam result --}}
+<script>
+    // show modal
+    $('.updateBut').click(function(){
+        $('#updateExamResultModal').modal('show');
+        // set the exam id
+        var updateexamId = $(this).data("updateexamid");
+        $('#updatehidenExamId').val(updateexamId);
+    });
+    // implementation submit button cliced from modal
+    $('#update_exam_result_form').on('submit', function(event){
+        event.preventDefault();
+        if($('#UpdateResult').val() == 'Update Result'){
+            $.ajax({
+                url:"{{ route('update_result') }}",
+                method:"POST",
+                data: new FormData(this),
+                contentType:false,
+                cache:false,
+                processData:false,
+                dataType:'json',
+                beforeSend: function()
+                {   
+                    $('#UpdateResult').html('<i class="fa fa-circle-o-notch fa-spin"></i>');                            
+                },
+                success:function(data){
+                    var html = '';
+                    if(data.errors){
+                        html = '<div class="alert alert-danger alert-block">';
+                        for(var count = 0; count<data.errors.length; count++){
+                            html += '<p>' + data.errors[count] + '</p>';
+                        }
+                        html += '</div>';
+                        $('#UpdateResult').html('Submit');
+                    }
+                    if(data.success){
+                        html = '<div class = "alert alert-success alert-block">'
+                        + data.success + '<button type="button" class="close" data-dismiss="alert">x</button</div>';
+                        // empty form field values  
+                        $('#update_exam_result_form')[0].reset();
+                        $('#UpdateResult').html('Submit');
+  
+                    }
+                    // render error or success message in html variable to span element with id value form_result
+                    $('#form_result_update_result').html(html);
                 }
             })
         }
