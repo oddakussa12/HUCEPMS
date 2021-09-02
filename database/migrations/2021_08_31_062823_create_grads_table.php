@@ -6,24 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateGradsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('grads', function (Blueprint $table) {
             $table->id();
+            $table->integer('subject_id');
+            $table->integer('student_id');
+            $table->char('grade',1);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('grads');

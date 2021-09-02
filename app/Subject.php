@@ -35,4 +35,8 @@ class Subject extends Model
     public function exams(){
         return $this->hasMany('App\Exam');
     }
+
+    public function grad(){
+        return $this->hasOne('App\Grad');
+    }
 }

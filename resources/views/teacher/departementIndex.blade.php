@@ -54,7 +54,14 @@
         </div>
         <div class = "card" style="margin-top:30px;">
             <div class="card-header">
-                <h6>Students</h6>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h6>Students</h6>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <a href="/subDeptGR/{{$departement->id}}/{{$subject->id}}" class="btn btn-success btn-sm">Generate grade report</a>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-hover">

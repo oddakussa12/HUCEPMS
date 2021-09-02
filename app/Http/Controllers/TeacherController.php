@@ -11,6 +11,7 @@ use App\Resource;
 use App\Exam;
 use Validator;
 use File;
+use App\Grad;
 use Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -221,9 +222,13 @@ class TeacherController extends Controller
 
         $studentSize = sizeOf($request->stud_id);
         $exam = Exam::find($request->examId);
-        for($i=0 ; $i<$studentSize ; $i++){
-            $exam->students()->attach($request->stud_id[$i],['mark' => $request->ExamResult[$i]]);
+        $sync_data = [];
+        for($i = 0; $i < count($request->stud_id); $i++){
+            $sync_data[$request->stud_id[$i]] = ['mark' => $request->ExamResult[$i]];
         }
+            
+
+        $exam->students()->sync($sync_data);
         return response()->json(['success'=> 'Exam result recorded successfully.']); 
     }
     public function bulkUpdateExamResult(Request $request){
@@ -261,5 +266,36 @@ class TeacherController extends Controller
         ]);
 
         return response()->json(['success'=> 'Assesement has been created successfully.']); 
+    }
+
+    public function gradeReportSubjectDept($dept, $sub){
+        $students = Student::where('departement_id',$dept)->get();
+        $subject = Subject::where('id',$sub)->first();
+        // dd($subject);
+        foreach($students as $student){
+            $subjectTotalMark = 0;
+            foreach($student->exams->where('subject_id',$sub) as $subjectExam){
+                $subjectTotalMark = $subjectTotalMark + $subjectExam->pivot->mark;
+            }
+            $grade = new Grad();
+            $grade->subject_id = $sub;
+            $grade->student_id = $student->id;
+            // dd($subjectTotalMark);
+            if($subjectTotalMark >= 85){
+                $grade->grade = 'A';
+            }elseif ($subjectTotalMark >= 70) {
+                $grade->grade = 'B';
+            }else{
+                $grade->grade = 'C';
+            }
+            $grade->save();
+        }
+
+        // returning to the view
+        foreach($students as $student){
+            $grades[] = Grad::where('subject_id',$sub)->where('student_id',$student->id)->get();
+        }
+        $departement = Departement::find($dept);
+        return view("teacher.deptSubGR",compact('departement','subject','students','grades'));
     }
 }

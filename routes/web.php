@@ -77,7 +77,8 @@ Route::post('/update_result', 'TeacherController@bulkUpdateExamResult')->name('u
 // route to create assesement
 Route::post('/createassesement', 'TeacherController@createAssesement')->name('createassesement');
 
-
+// generate grade report for specific subject and specific dept
+Route::get('/subDeptGR/{dept}/{sub}' , 'TeacherController@gradeReportSubjectDept')->name('subDeptGR');
 
 
 

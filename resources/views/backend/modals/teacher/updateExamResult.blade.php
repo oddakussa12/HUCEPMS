@@ -24,7 +24,7 @@
                             <div class="col-sm-6">
                                 <input type="hidden" name="stud_id[]" value={{$student->id}} />
                                 @foreach ($student->exams->where('subject_id',$subject->id) as $subjectExam)
-                                    {{-- <p>{{$subjectExam->id}}</p> --}}
+                                    {{-- belows $subject->id should be $exam->id --}}
                                     @if ($subjectExam->id == $subject->id )
                                         <input type="number" style="width:80px;" class="form-control input-sm"
                                         value={{$subjectExam->pivot->mark}} name="ExamResult[]" id="ExamResult">
