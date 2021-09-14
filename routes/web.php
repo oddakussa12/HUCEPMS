@@ -21,6 +21,7 @@ Route::get('/nonAuthHome','NonAuthController@index')->name('nonAuthHome');
 Route::get('/applicationForm','NonAuthController@getApplicationForm')->name('applicationForm');
 Route::get('/student_courses','StudentController@getStudentCourses')->name('student_courses');
 Route::get('/course_details/{id}','StudentController@getCourse')->name('course_details');
+Route::get('/gradeReport' , 'StudentController@gradeReport')->name('gradeReport');
 
 // route for Admin
 // return study program dashboard
@@ -81,7 +82,8 @@ Route::post('/createassesement', 'TeacherController@createAssesement')->name('cr
 Route::get('/subDeptGR/{dept}/{sub}' , 'TeacherController@gradeReportSubjectDept')->name('subDeptGR');
 
 
-
+// route by Registrar
+Route::get('/calculateDepartementGPA', 'GPAController@departementGPA')->name('calculateDepartementGPA');
 
 
 

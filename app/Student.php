@@ -48,4 +48,7 @@ class Student extends Model
         return $this->belongsToMany('App\Exam')
         ->withPivot(['mark']);
     }
+    public function gpa(){
+        return $this->hasOne('App\GPA');
+    }
 }

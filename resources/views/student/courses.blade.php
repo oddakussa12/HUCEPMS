@@ -16,7 +16,7 @@
             <div class="card-body">
                 <table class="table table-hover">
                     <thead>
-                      <tr>
+                      <tr class="text-center">
                         <th scope="col">#</th>
                         <th scope="col">Course Code</th>
                         <th scope="col">Course Name</th>
@@ -28,12 +28,16 @@
                       <?php $row = 0; ?>
                       @foreach ($student->departement->subjects as $subject )
                       <?php $row++; ?>
-                        <tr>
+                        <tr class="text-center">
                           <th scope="row">{{$row}}</th>
-                          <td>{{$subject->subject_code}}</td>
+                          <td>
+                            <span class="badge badge-info">{{$subject->subject_code}}</span>
+                          </td>
                           <td>{{$subject->name}}</td>
-                          <td>{{$subject->credit_hr}}</td>
-                          <td><a href="/course_details/{{$subject->id}}">View</a></td>
+                          <td>
+                            <span class="badge badge-info">{{$subject->credit_hr}}</span>
+                          </td>
+                          <td><a href="/course_details/{{$subject->id}}" class="btn btn-info btn-sm">View</a></td>
                         </tr>
                       @endforeach
                     </tbody>

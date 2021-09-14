@@ -7,17 +7,17 @@
 
 <div class="home">
     <div class="row">
-        <div class="col-sm-8">
-            <h4 class="text-gray-700 uppercase">Departement of {{$departement->name}}</h4>
+        <div class="col-sm-8" style="margin-top:20px;">
+            <h5 class="text-gray-700 uppercase">Departement of {{$departement->name}}</h5>
         </div>
-        <div class="col-sm-4 text-right">
+        <div class="col-sm-4 text-right" style="margin-top:20px;">
             <a href="/home" class="btn btn-secondary btn-sm" style="width:80px;">Back</a>
         </div>
     </div>
     <div class="container-fluid" style="padding:0px;margin-top:30px;">
         <div class="card">
             <div class="card-header">
-                <h6><span class="badge badge-warning">{{$subject->name}}</span> - Course Materials</h6>
+                <h6>Course Materials - <span class="badge badge-info">{{$subject->name}}</span></h6>
             </div>
             <div class="card-body">
                 <table class="table table-hover">
@@ -26,7 +26,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Resouce Name</th>
                         <th scope="col">Resouce</th>
-                        <th>File Size</th>
                         <th>Uploaded On</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -39,7 +38,6 @@
                             <td>{{$row}}</td>
                             <td>{{$resouce->name}}</td>
                             <td>{{$resouce->filename}}</td>
-                            <td>102KB</td>
                             <td>{{$resouce->updated_at}}</td>
                             <td>
                                 <a href="#" class="btn btn-primary btn-sm editresourcebut" data-resoid={{$resouce->id}} >Update</a>
@@ -56,10 +54,10 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h6>Students</h6>
+                        <h6>Students ( <span class="badge badge-info">{{count($students)}}</span> )</h6>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="/subDeptGR/{{$departement->id}}/{{$subject->id}}" class="btn btn-success btn-sm">Generate grade report</a>
+                        <a href="/subDeptGR/{{$departement->id}}/{{$subject->id}}" class="btn btn-info btn-sm">Generate grade report</a>
                     </div>
                 </div>
             </div>
@@ -69,17 +67,18 @@
                         <tr>
                             <th>Student Name</th>
                             @foreach ($subject->exams as $exam )
-                                <th>{{$exam->name}} <br />
-                                    <a href="#" class="btn btn-success btn-sm insertBut" data-examid={{$exam->id}}
-                                        style="margin-top:10px;" >Record
+                                <th class="text-center">{{$exam->name}} <br />
+                                    <a href="#" class="btn btn-secondary btn-sm insertBut" data-examid={{$exam->id}}
+                                        style="height:22px;width:70px; padding:0px;" >Record
                                     </a>
-                                    <a href="#" class="btn btn-success btn-sm updateBut" data-updateexamid={{$exam->id}}
-                                        style="margin-top:10px;" >Update</a>
+                                    <a href="#" class="btn btn-secondary btn-sm updateBut" style="height:22px;width:70px; padding:0px;" 
+                                        data-updateexamid={{$exam->id}}>Update
+                                    </a>
                                     </a>
                                 </th>
                             @endforeach
                             <th>Total</th>
-                            <th>Action</th>
+                            {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -88,11 +87,16 @@
                                 <td>{{$student->user->name}}</td>
                                 <?php $total = 0; ?>
                                 @foreach ($student->exams->where('subject_id',$subject->id) as $subjectExam )
-                                    <td>{{$subjectExam->pivot->mark}}</td>
+                                    <td class="text-center">
+                                        <span class="badge badge-info">{{$subjectExam->pivot->mark}}</span>
+                                    </td>
                                     <?php $total = $total + $subjectExam->pivot->mark; ?>
                                 @endforeach
-                                <td>{{$total}}</td>
-                                <td><a href="#" class="btn btn-primary btn-sm" >Edit</a></td>
+                                <td>
+                                    <span class="badge badge-info" style="font-size:15px;">{{$total}}</span>
+                                </td>
+                                
+                                {{-- <td><a href="#" class="btn btn-primary btn-sm" >Edit</a></td> --}}
                             </tr>
                         @endforeach
                     </tbody>

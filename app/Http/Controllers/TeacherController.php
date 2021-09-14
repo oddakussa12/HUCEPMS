@@ -274,27 +274,49 @@ class TeacherController extends Controller
         // dd($subject);
         foreach($students as $student){
             $subjectTotalMark = 0;
+            // $grade = 'F';
             foreach($student->exams->where('subject_id',$sub) as $subjectExam){
                 $subjectTotalMark = $subjectTotalMark + $subjectExam->pivot->mark;
             }
-            $grade = new Grad();
-            $grade->subject_id = $sub;
-            $grade->student_id = $student->id;
+
+            // $grade = new Grad();
+            // $grade->subject_id = $sub;
+            // $grade->student_id = $student->id;
             // dd($subjectTotalMark);
             if($subjectTotalMark >= 85){
-                $grade->grade = 'A';
-            }elseif ($subjectTotalMark >= 70) {
-                $grade->grade = 'B';
+                $grade = 'A';
+            }elseif ($subjectTotalMark >= 75) {
+                $grade = 'B';
             }else{
-                $grade->grade = 'C';
+                $grade = 'C';
             }
-            $grade->save();
+            // $grade->save();
+
+            $studentGrade = Grad::where('subject_id',$sub)->where('student_id',$student->id)->first();
+            // dd($studentGrade);
+            if($studentGrade == null){
+                $studentGrade = new Grad([
+                    'student_id' => $student->id,
+                    'subject_id' => $sub,
+                    'grade'      => $grade
+                ]);
+            }
+            if($studentGrade !== null){
+                $studentGrade->update(['grade' => $grade]);
+            }
+            $studentGrade->save();
+            
+
+
+
+
         }
 
         // returning to the view
         foreach($students as $student){
             $grades[] = Grad::where('subject_id',$sub)->where('student_id',$student->id)->get();
         }
+        // dd($grades);
         $departement = Departement::find($dept);
         return view("teacher.deptSubGR",compact('departement','subject','students','grades'));
     }

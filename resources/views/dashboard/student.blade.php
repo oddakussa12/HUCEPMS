@@ -88,7 +88,8 @@
                     </label>
                 </div>
                 <div class="md:w-2/3 block text-gray-600 font-bold">
-                    <span class="text-gray-600 font-bold">{{ $student->class->class_name }}</span>
+                    {{-- <span class="text-gray-600 font-bold">{{ $student->class->class_name }}</span> --}}
+                    <span class="text-gray-600 font-bold">{{ $student->departement->name }}</span>
                 </div>
             </div>
             <div class="md:flex md:items-center mb-6">
@@ -98,7 +99,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3 block text-gray-600 font-bold">
-                    <span class="text-gray-600 font-bold">{{ $student->parent->user->name }}</span>
+                    {{-- <span class="text-gray-600 font-bold">{{ $student->parent->user->name }}</span> --}}
                 </div>
             </div>
             <div class="md:flex md:items-center mb-6">
@@ -108,7 +109,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3 block text-gray-600 font-bold">
-                    <span class="text-gray-600 font-bold">{{ $student->parent->user->email }}</span>
+                    {{-- <span class="text-gray-600 font-bold">{{ $student->parent->user->email }}</span> --}}
                 </div>
             </div>
             <div class="md:flex md:items-center mb-6">
@@ -118,7 +119,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3 block text-gray-600 font-bold">
-                    <span class="text-gray-600 font-bold">{{ $student->parent->phone }}</span>
+                    {{-- <span class="text-gray-600 font-bold">{{ $student->parent->phone }}</span> --}}
                 </div>
             </div>
             <div class="md:flex md:items-center mb-6">
@@ -128,11 +129,11 @@
                     </label>
                 </div>
                 <div class="md:w-2/3 block text-gray-600 font-bold">
-                    <span class="text-gray-600 font-bold">{{ $student->parent->current_address }}</span>
+                    {{-- <span class="text-gray-600 font-bold">{{ $student->parent->current_address }}</span> --}}
                 </div>
             </div>
 
-            <div class="w-full px-0 md:px-6 py-12">
+            {{-- <div class="w-full px-0 md:px-6 py-12">
                 <div class="flex items-center bg-gray-200">
                     <div class="w-1/3 text-left text-gray-600 py-2 px-4 font-semibold">Code</div>
                     <div class="w-1/3 text-left text-gray-600 py-2 px-4 font-semibold">Subject</div>
@@ -145,9 +146,9 @@
                         <div class="w-1/3 text-right text-gray-600 py-2 px-4 font-medium">{{ $subject->teacher->user->name }}</div>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
 
-            <div class="w-full px-0 md:px-6 py-12">
+            {{-- <div class="w-full px-0 md:px-6 py-12">
                 <div class="flex items-center bg-gray-200">
                     <div class="w-1/4 text-left text-gray-600 py-2 px-4 font-semibold">Date</div>
                     <div class="w-1/4 text-left text-gray-600 py-2 px-4 font-semibold">Class</div>
@@ -168,6 +169,6 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
         </div>        
     </div>

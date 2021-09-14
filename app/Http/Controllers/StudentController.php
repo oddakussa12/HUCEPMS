@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Grade;
 use Auth;
+use App\GPA;
 use App\Parents;
 use App\Student;
+use App\Grad;
 use App\Departement;
 use App\Assesement;
 use App\Subject;
@@ -199,6 +201,24 @@ class StudentController extends Controller
         // }
         
         return view('student.coursePage',compact('resources','subjectExams','subject',));
+    }
+
+    public function gradeReport(){
+        $user = Auth::user()->id;
+        // dd($user);
+        $student = Student::where('user_id',$user)->first();
+        // dd($student);
+        $departement = $student->departement;
+        $subjects = $departement->subjects;
+        // dd($subjects);
+        $subjectGrades = array();
+        foreach($subjects as $subject){
+            $subjectGrades[] =  Grad::where('subject_id',$subject->id)->where('student_id',$student->id)->get();
+        }
+        // dd($subjectGrades);
+        $gpa = GPA::where('student_id',$student->id)->first();
+    
+        return view('student.gradeReport',compact('student','departement','subjects','gpa','subjectGrades'));
     }
 
 }

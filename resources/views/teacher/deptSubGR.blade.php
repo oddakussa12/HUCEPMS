@@ -16,6 +16,8 @@
             <h5>{{$departement->name}} / {{$subject->name}}</h5>
         </div>
         <div class = "card-body">
+            {{-- {{count($students)}}
+            {{count($grades)}} --}}
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -24,16 +26,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php 
+                        $counte = 0;
+                        // dd(sizeof($grades));
+                    @endphp
                     @foreach ($students as $student )
-                        <?php $counter = 0; ?>
                         <tr>
                             <td>{{$student->user->name}}</td>
-                            @foreach($grades as $grade)
-                                <td>{{$grade[$counter]->grade}}</td>
-                                <?php break; ?>
-                            @endforeach
+                            
+                            @for ($i = 0 ; $i< count($grades) ; $i++)
+                                <td>{{$grades[$counte][0]->grade}}</td>
+                                @break
+                            @endfor
                         </tr>
-                        <?php $counter++ ?>
+                        @php 
+                            $counte = $counte +1;
+                        @endphp
                     @endforeach
                 </tbody>
             </table>

@@ -20,7 +20,7 @@
             <div class="card-body">
                 <table class="table table-hover">
                     <thead>
-                      <tr scope="row">
+                      <tr scope="row" class="text-center">
                        @foreach ($subject->exams as $subjectExam )
                          <th scope="col">{{$subjectExam->name}}</th>
                        @endforeach
@@ -28,13 +28,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr scope="row">
+                      <tr scope="row" class="text-center">
                         <?php $total = 0;?>
                         @foreach ($subjectExams as $subjectExam)
-                            <td scope="col">{{$subjectExam->pivot->mark}}</td>
+                            <td scope="col">
+                              <span class="badge badge-info">{{$subjectExam->pivot->mark}}</span>
+                            </td>
                             <?php $total = $total + $subjectExam->pivot->mark ?>
                         @endforeach
-                        <td scope="col">{{$total}}</td>
+                        <td scope="col">
+                          <span class="badge badge-success" style="font-size:16px;">{{$total}}</span>
+                        </td>
                       </tr>
                     </tbody>
                 </table>
