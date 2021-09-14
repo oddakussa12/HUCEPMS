@@ -31,6 +31,12 @@ class HomeController extends Controller
             $students = Student::latest()->get();
             return view('home', compact('parents','teachers','students'));
         }
+        elseif($user->hasRole('Registrar')) {
+            return view('registrar.home');
+        }
+        elseif($user->hasRole('DepHead')) {
+            return view('DepHead.home');
+        }
          elseif ($user->hasRole('Teacher')) {
 
             // $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
