@@ -29,7 +29,7 @@ class ApplyController extends Controller
             // 'departement_id'          => 'required|numeric',
             'gender'            => 'required|string',
             'resume'            => 'required',
-            'phone_number'             => 'required',
+            'phone_number'             => 'required|string|min:10',
         ]);
         
         $apply = new Apply();
@@ -43,6 +43,7 @@ class ApplyController extends Controller
             $apply->resume = $request->resume;
         }
         $apply->save();
+        return back()->with('success','You have applied successfully, Please check your email.');
     }
 
     public function show(Apply $apply)

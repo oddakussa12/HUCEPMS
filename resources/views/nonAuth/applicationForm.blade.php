@@ -19,6 +19,7 @@
                 <div class="col-lg-12">
                     <div class="text-center">
                         <h3>Application Form</h3>
+                        @include('flash-message')
                     </div>
                 </div>
             </div>

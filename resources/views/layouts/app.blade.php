@@ -19,6 +19,7 @@
 
         @include('layouts.navbar')
         
+        
         <div class="main flex flex-wrap justify-end mt-16">
             
             @include('layouts.sidebar')
