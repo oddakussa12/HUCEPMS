@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Grade;
 use App\Parents;
 use App\Student;
+Use App\Departement;
+use Illuminate\Support\Facades\DB;
 use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +37,14 @@ class HomeController extends Controller
             return view('registrar.home');
         }
         elseif($user->hasRole('DepHead')) {
-            return view('DepHead.home');
+            $auth_user = Auth::user()->id;
+            // dd($user);
+            $departement = Departement::where('head_user_id',$auth_user)->first();
+            $Students = Student::where('departement_id',$departement->id)->get();
+            // dd($Students);
+            $subjects = $departement->subjects;
+            
+            return view('DepHead.home',compact('departement','Students','subjects'));
         }
          elseif ($user->hasRole('Teacher')) {
 

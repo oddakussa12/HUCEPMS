@@ -13,6 +13,7 @@ class CreateDepartementsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('collage_id');
+            $table->integer('head_user_id');
             $table->timestamps();
         });
     }

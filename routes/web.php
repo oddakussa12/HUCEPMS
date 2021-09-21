@@ -89,6 +89,12 @@ Route::get('/calculateDepartementGPA', 'GPAController@departementGPA')->name('ca
 
 
 
+// route for departement head to
+// route to edit a subject 
+Route::get('/editSubjectInDepart/{id}', 'SubjectController@editSubject')->name('editSubjectInDepart');
+// route to edit a subject 
+Route::post('/editSubjectInDepart', 'SubjectController@editSubjectPost')->name('editSubjectInDepart');
+
 
 
 
