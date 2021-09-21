@@ -143,6 +143,5 @@ class SubjectController extends Controller
         DB::table('departement_subject')->where('subject_id',$request->subject_id)->where('departement_id', $request->departement_id)->update(['teacher_id' => $request->teacher_id]);
        
         return redirect('/home');
-
     }
 }

@@ -52,7 +52,11 @@ class HomeController extends Controller
             // return view('home', compact('teacher'));
             
             $user = Auth::user();
+            // dd($user);
             $teacher = Teacher::where('user_id',$user->id)->first();
+            $teacherDepartements = DB::select('select * from departement_subject where teacher_id = ?', [$user->id]);
+            // dd($teacherDepartements);
+            // DB::table('departement_subject')->where('subject_id',$request->subject_id)->where('departement_id', $request->departement_id)->update(['teacher_id' => $request->teacher_id]);
             return view('teacher.teacherHome',compact('teacher'));
         }
          elseif ($user->hasRole('Parent')) {

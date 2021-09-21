@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Apply;
+use App\Mail\StudentApply;
+use Mail;
 use Illuminate\Http\Request;
 
 class ApplyController extends Controller
@@ -43,6 +45,19 @@ class ApplyController extends Controller
             $apply->resume = $request->resume;
         }
         $apply->save();
+
+
+        $myEmail = $request->email;
+   
+        $details = [
+            'title' => 'Application email from Haromaya University.com',
+            'url' => 'http://localhost:8000',
+            'user' => $request->first_name . " " . $request->middle_name
+        ];
+  
+        Mail::to($myEmail)->send(new StudentApply($details));
+   
+        // dd("Mail Send Successfully");
         return back()->with('success','You have applied successfully, Please check your email.');
     }
 
@@ -66,4 +81,6 @@ class ApplyController extends Controller
     {
         //
     }
+
+   
 }

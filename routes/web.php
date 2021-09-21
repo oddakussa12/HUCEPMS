@@ -82,8 +82,9 @@ Route::post('/createassesement', 'TeacherController@createAssesement')->name('cr
 Route::get('/subDeptGR/{dept}/{sub}' , 'TeacherController@gradeReportSubjectDept')->name('subDeptGR');
 
 // route by non auth users to apply
-
 Route::post('/apply','ApplyController@store')->name('apply');
+// email sending when student applying
+Route::get('my-demo-mail','ApplyController@sendApplicationEmail');
 // route by Registrar
 Route::get('/calculateDepartementGPA', 'GPAController@departementGPA')->name('calculateDepartementGPA');
 
