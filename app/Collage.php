@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Collage extends Model
 {
     protected $fillable = [
-        'CollageName','programtype_id','programlevel_id'
+        'CollageName','programtype_id','programlevel_id','registrar_id'
     ];
 
     public function programType(){

@@ -8,6 +8,7 @@ use App\Student;
 Use App\Departement;
 use Illuminate\Support\Facades\DB;
 use App\Teacher;
+use App\Collage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,7 +35,12 @@ class HomeController extends Controller
             return view('home', compact('parents','teachers','students'));
         }
         elseif($user->hasRole('Registrar')) {
-            return view('registrar.home');
+            $user = Auth::user();
+            // dd($user);
+            $collage = Collage::where('registrar_id',$user->id)->first();
+            // dd($collage);
+            // dd($collage->departements);
+            return view('registrar.home',compact('collage'));
         }
         elseif($user->hasRole('DepHead')) {
             $auth_user = Auth::user()->id;
@@ -47,16 +53,10 @@ class HomeController extends Controller
             return view('DepHead.home',compact('departement','Students','subjects'));
         }
          elseif ($user->hasRole('Teacher')) {
-
-            // $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
-            // return view('home', compact('teacher'));
-            
             $user = Auth::user();
             // dd($user);
             $teacher = Teacher::where('user_id',$user->id)->first();
             $teacherDepartements = DB::select('select * from departement_subject where teacher_id = ?', [$user->id]);
-            // dd($teacherDepartements);
-            // DB::table('departement_subject')->where('subject_id',$request->subject_id)->where('departement_id', $request->departement_id)->update(['teacher_id' => $request->teacher_id]);
             return view('teacher.teacherHome',compact('teacher'));
         }
          elseif ($user->hasRole('Parent')) {

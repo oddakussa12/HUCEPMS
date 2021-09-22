@@ -18,6 +18,7 @@ class CreateCollagesTable extends Migration
             $table->string('CollageName');
             $table->integer('programtype_id');
             $table->integer('programlevel_id');
+            $table->integer('registrar_id');
             $table->timestamps();
         });
     }

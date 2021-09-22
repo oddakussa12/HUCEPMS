@@ -18,6 +18,8 @@ class CreateAppliesTable extends Migration
             $table->string('phone_number');
             $table->string('gender');
             $table->string('resume');
+            $table->integer('collage_id');
+            $table->integer('departement_id');
             $table->timestamps();
         });
     }

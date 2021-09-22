@@ -104,22 +104,34 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Choose program Level</label>
-                                        <select class="form-control">
-                                            <option>-- Please select --</option>
+                                        <label class="control-label">Choose collage</label>
+                                        <select class="form-control" name="collage_id" type="text">
+                                            <option selected disabled>-- Please select --</option>
+                                            @foreach ($collages as $collage )
+                                                <option value = {{$collage->id}}>{{$collage->CollageName}}</option>
+                                            @endforeach
+                                            @error('collage_id')
+                                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                            @enderror
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Choose program Type</label>
-                                        <select class="form-control">
-                                            <option>-- Please select --</option>
+                                        <label class="control-label">Choose departement</label>
+                                        <select class="form-control" name = "departement_id">
+                                            <option selected disabled>-- Please select --</option>
+                                            @foreach ($departements as $departement )
+                                                <option value = {{$departement->id}}>{{$departement->name}}</option>
+                                            @endforeach
+                                            @error('departement_id')
+                                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                            @enderror
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Choose Collage</label>
@@ -136,7 +148,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
             
                             <div class="row">
                                 <div class="col-md-3 col-lg-12">

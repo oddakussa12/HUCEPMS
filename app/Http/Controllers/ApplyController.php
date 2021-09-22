@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Apply;
 use App\Mail\StudentApply;
 use Mail;
+use Illuminate\Support\Facades\Auth;
+use App\Collage;
 use Illuminate\Http\Request;
 
 class ApplyController extends Controller
@@ -12,7 +14,14 @@ class ApplyController extends Controller
     
     public function index()
     {
-        //
+        // return all the applicants
+        $user = Auth::user();
+        // dd($user->id);
+        $collage = Collage::where('registrar_id',$user->id)->first();
+        // dd($collage);
+        $applicants = Apply::where('collage_id',$collage->id)->get();
+        // dd($applicants);
+        return view('registrar.applicants',compact('applicants','collage'));
     }
 
     public function create()
@@ -23,6 +32,7 @@ class ApplyController extends Controller
    
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'first_name'              => 'required|string|max:255',
             'last_name'              => 'required|string|max:255',
@@ -32,6 +42,8 @@ class ApplyController extends Controller
             'gender'            => 'required|string',
             'resume'            => 'required',
             'phone_number'             => 'required|string|min:10',
+            'collage_id' => 'required',
+            'departement_id' => 'required',
         ]);
         
         $apply = new Apply();
@@ -41,6 +53,8 @@ class ApplyController extends Controller
         $apply->phone_number = $request->phone_number;
         $apply->email = $request->email;
         $apply->gender = $request->gender;
+        $apply->collage_id = $request->collage_id;
+        $apply->departement_id = $request->departement_id;
         if ($request->hasFile('resume')) {
             $apply->resume = $request->resume;
         }

@@ -22,7 +22,24 @@
                                 <label class="control-label">Collage name</label>
                             </div>
                             <div class = "col-sm-7">
-                                <input type="input" name="CollageName" class="form-control" />
+                                <input type="input" name="CollageName" class="form-control" placeholder="Collage name..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class = "row">
+                            <div class = "col-sm-4 text-right">
+                                <label class="control-label">Assign Registrar</label>
+                            </div>
+                            <div class = "col-sm-7">
+                                <select class="form-control" name="registrar_id">
+                                    <option>-- Please select --</option>
+                                    @foreach ($registarUsers as $registarUser)
+                                    <option value={{$registarUser->id}}>{{$registarUser->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

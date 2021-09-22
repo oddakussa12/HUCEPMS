@@ -97,7 +97,9 @@ Route::get('/editSubjectInDepart/{id}', 'SubjectController@editSubject')->name('
 Route::post('/editSubjectInDepart', 'SubjectController@editSubjectPost')->name('editSubjectInDepart');
 
 
-
+// route by the registarUsers
+// route to fetch all the applicants under specific collage
+Route::get('/viewApplicants', 'ApplyController@index')->name('viewApplicants');
 
 
 

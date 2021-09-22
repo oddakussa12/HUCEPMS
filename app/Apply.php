@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Apply extends Model
 {
     protected $fillable = [
-        'first_name','last_name','middle_name','email','resume','gender','phone_number'
+        'first_name','last_name','middle_name','email','resume','gender','phone_number',
+        'departement_id', 'collage_id'
     ];
 }
