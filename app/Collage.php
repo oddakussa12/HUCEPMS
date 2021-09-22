@@ -23,4 +23,8 @@ class Collage extends Model
     public function subjects(){
         return $this->hasMany('App\Subject');
     }
+
+    public function applicants(){
+        return $this->hasMany('App\Apply');
+    }
 }

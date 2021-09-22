@@ -34,4 +34,8 @@ class Departement extends Model
         }
         return $teacherName;
     }
+
+    public function applicants(){
+        return $this->hasMany('App\Apply');
+    }
 }

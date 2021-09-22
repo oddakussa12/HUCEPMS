@@ -23,6 +23,8 @@
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Gender</th>
+                        <th>Collage</th>
+                        <th>Departement</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -41,7 +43,9 @@
                                 <td>{{$applicant->email}}</td>
                                 <td>{{$applicant->phone_number}}</td>
                                 <td>{{$applicant->gender}}</td>
-                                <td><a href="viewApplicant/{{$applicant->id}}" class="btn btn-success btn-sm">View</a></td>
+                                <td>{{$applicant->collage->CollageName}}</td>
+                                <td>{{$applicant->departement->name}}</td>
+                                <td><a href="showApplicant/{{$applicant->id}}" class="btn btn-success btn-sm">View</a></td>
                             </tr>
                         @endforeach
                     </tbody>

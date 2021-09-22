@@ -20,6 +20,8 @@ class ApplyController extends Controller
         $collage = Collage::where('registrar_id',$user->id)->first();
         // dd($collage);
         $applicants = Apply::where('collage_id',$collage->id)->get();
+        // OR
+        $applicants = $collage->applicants;
         // dd($applicants);
         return view('registrar.applicants',compact('applicants','collage'));
     }
@@ -75,9 +77,12 @@ class ApplyController extends Controller
         return back()->with('success','You have applied successfully, Please check your email.');
     }
 
-    public function show(Apply $apply)
+    public function show(Apply $apply,$id)
     {
-        //
+        $applicant = Apply::where('id',$id)->first();
+        $collage = $applicant->collage;
+
+        return view('registrar.viewApplicant',compact('applicant','collage'));
     }
 
     public function edit(Apply $apply)
