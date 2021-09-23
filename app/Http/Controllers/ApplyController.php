@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Apply;
+use App\Student;
+use App\User;
 use App\Mail\StudentApply;
+use App\Mail\ApplicationApproved;
+use Illuminate\Support\Facades\Hash;
 use Mail;
 use Illuminate\Support\Facades\Auth;
 use App\Collage;
@@ -72,8 +76,6 @@ class ApplyController extends Controller
         ];
   
         Mail::to($myEmail)->send(new StudentApply($details));
-   
-        // dd("Mail Send Successfully");
         return back()->with('success','You have applied successfully, Please check your email.');
     }
 
@@ -99,6 +101,53 @@ class ApplyController extends Controller
     public function destroy(Apply $apply)
     {
         //
+    }
+
+    public function approveApplicant($id){
+        $applicant = Apply::where('id',$id)->first();
+        // dd($applicant);
+        
+        $user = User::create([
+            'name'              => $applicant->first_name." ".$applicant->middle_name,
+            'email'             => $applicant->email,
+            'password'          => Hash::make("1234")
+        ]);
+
+        // if ($request->hasFile('profile_picture')) {
+        //     $profile = Str::slug($user->name).'-'.$user->id.'.'.$request->profile_picture->getClientOriginalExtension();
+        //     $request->profile_picture->move(public_path('images/profile'), $profile);
+        // } else {
+        $profile = 'avatar.png';
+        // }
+        $user->update([
+            'profile_picture' => $profile
+        ]);
+
+        $user->student()->create([
+            'departement_id'          => $applicant->departement_id,
+            'gender'            => $applicant->gender,
+            'phone'             => $applicant->phone_number,
+        ]);
+        $user->assignRole('Student');
+        
+
+        // $myEmail = $request->email;
+   
+        $details = [
+            'title' => 'Congratulations!. Your application to haromaya university has been approved',
+            'url' => 'http://localhost:8000',
+            'user' => $applicant->first_name . " " . $applicant->middle_name,
+            'email' =>$applicant->email,
+        ];
+  
+        Mail::to($applicant->email)->send(new ApplicationApproved($details));
+
+        $applicant->delete();
+        return redirect('/viewApplicants');
+
+    }
+    public function declineApplicant(){
+
     }
 
    

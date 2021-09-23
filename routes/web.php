@@ -16,6 +16,7 @@ Route::get('/', function () {
     return redirect('/nonAuthHome');
 });
 
+
 // routes for student
 Route::get('/nonAuthHome','NonAuthController@index')->name('nonAuthHome');
 Route::get('/applicationForm','NonAuthController@getApplicationForm')->name('applicationForm');
@@ -102,6 +103,9 @@ Route::post('/editSubjectInDepart', 'SubjectController@editSubjectPost')->name('
 Route::get('/viewApplicants', 'ApplyController@index')->name('viewApplicants');
 // show single applicant details
 Route::get('/showApplicant/{id}', 'ApplyController@show')->name('showApplicant');
+
+// approve applicant
+Route::get('/approveApplicant/{id}', 'ApplyController@approveApplicant')->name('approveApplicant');
 
 
 
