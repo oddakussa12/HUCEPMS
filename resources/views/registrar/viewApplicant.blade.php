@@ -43,7 +43,7 @@
                         <div class="row" style="margin-top:5%;">
                             
                             <div class="col-sm-6 text-left">
-                                <a href="" class="btn btn-danger btn-sm" style="width:45%;">Decline</a>
+                                <a href="/declineApplicant/{{$applicant->id}}" class="btn btn-danger btn-sm" style="width:45%;">Decline</a>
                                 <a href="/approveApplicant/{{$applicant->id}}" class="btn btn-success btn-sm" style="width:45%;">Approve</a>
                             </div>
                         </div>

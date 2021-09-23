@@ -7,6 +7,7 @@ use App\Student;
 use App\User;
 use App\Mail\StudentApply;
 use App\Mail\ApplicationApproved;
+use App\Mail\DeclineApplication;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 use Illuminate\Support\Facades\Auth;
@@ -159,7 +160,15 @@ class ApplyController extends Controller
         $applicant->delete();
         return redirect('/viewApplicants');
     }
-    public function declineApplicant(){
+    public function declineApplicant($id){
+        $applicant = Apply::where('id',$id)->first();
+        $details = [
+            'title' => 'Haromaya University Office of Registrar',
+            'user' => $applicant->first_name . " " . $applicant->middle_name,
+        ];
+        Mail::to($applicant->email)->send(new DeclineApplication($details));
+        $applicant->delete();
+        return redirect('/viewApplicants');
 
     }
     public function downloadApplicationForm($name){
