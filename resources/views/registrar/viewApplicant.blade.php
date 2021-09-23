@@ -36,7 +36,8 @@
                     <div class="col-sm-6">
                         <div class="row">
                             <div class="col-sm-12" style="margin-top:30%;">
-                                <a href="">Download application letter</a>
+                                
+                                <a href="/downloadApplicationLetter/{{$applicant->resume}}">Download application letter</a>
                             </div>
                         </div>
                         <div class="row" style="margin-top:5%;">

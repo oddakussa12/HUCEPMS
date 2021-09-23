@@ -61,8 +61,23 @@ class ApplyController extends Controller
         $apply->gender = $request->gender;
         $apply->collage_id = $request->collage_id;
         $apply->departement_id = $request->departement_id;
-        if ($request->hasFile('resume')) {
-            $apply->resume = $request->resume;
+       
+        // if($request->hasfile('resume'))
+        // {
+        //     $file = $request->resume;
+        //     $extension = $file->getClientOriginalName();
+        //     $filename = time() . '.' . $extension;
+        //     $file->move(public_path().'/images/', $filename);
+        //     $apply->resume = $filename;
+        //  }
+
+         if($request->file('resume')) 
+        {
+            $file = $request->file('resume');
+            $filename = time() . '.' . $request->file('resume')->extension();
+            $filePath = public_path() . '/files/uploads/';
+            $file->move($filePath, $filename);
+            $apply->resume = $filename;
         }
         $apply->save();
 
@@ -141,14 +156,13 @@ class ApplyController extends Controller
         ];
   
         Mail::to($applicant->email)->send(new ApplicationApproved($details));
-
         $applicant->delete();
         return redirect('/viewApplicants');
-
     }
     public function declineApplicant(){
 
     }
-
-   
+    public function downloadApplicationForm($name){
+        return response()->download(public_path().'/files/uploads/'.$name);
+    }
 }

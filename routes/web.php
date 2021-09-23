@@ -106,7 +106,8 @@ Route::get('/showApplicant/{id}', 'ApplyController@show')->name('showApplicant')
 
 // approve applicant
 Route::get('/approveApplicant/{id}', 'ApplyController@approveApplicant')->name('approveApplicant');
-
+// to download a file
+Route::get('downloadApplicationLetter/{name}', 'ApplyController@downloadApplicationForm')->name('downloadApplicationLetter');
 
 
 
