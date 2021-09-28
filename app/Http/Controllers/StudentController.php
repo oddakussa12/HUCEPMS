@@ -105,10 +105,11 @@ class StudentController extends Controller
   
     public function edit(Student $student)
     {
+        $departements = Departement::latest()->get();
         $classes = Grade::latest()->get();
         $parents = Parents::with('user')->latest()->get();
 
-        return view('backend.students.edit', compact('classes','parents','student'));
+        return view('backend.students.edit', compact('classes','parents','student','departements'));
     }
 
     public function update(Request $request, Student $student)
@@ -116,20 +117,20 @@ class StudentController extends Controller
         $request->validate([
             'name'              => 'required|string|max:255',
             'email'             => 'required|string|email|max:255|unique:users,email,'.$student->user_id,
-            'parent_id'         => 'required|numeric',
-            'class_id'          => 'required|numeric',
-            'roll_number'       => [
-                'required',
-                'numeric',
-                Rule::unique('students')->ignore($student->id)->where(function ($query) use ($request) {
-                    return $query->where('class_id', $request->class_id);
-                })
-            ],
+            // 'parent_id'         => 'required|numeric',
+            'departement_id'          => 'required|numeric',
+            // 'roll_number'       => [
+            //     'required',
+            //     'numeric',
+            //     Rule::unique('students')->ignore($student->id)->where(function ($query) use ($request) {
+            //         return $query->where('class_id', $request->class_id);
+            //     })
+            // ],
             'gender'            => 'required|string',
             'phone'             => 'required|string|max:255',
-            'dateofbirth'       => 'required|date',
-            'current_address'   => 'required|string|max:255',
-            'permanent_address' => 'required|string|max:255'
+            // 'dateofbirth'       => 'required|date',
+            // 'current_address'   => 'required|string|max:255',
+            // 'permanent_address' => 'required|string|max:255'
         ]);
 
         if ($request->hasFile('profile_picture')) {
@@ -146,14 +147,14 @@ class StudentController extends Controller
         ]);
 
         $student->update([
-            'parent_id'         => $request->parent_id,
-            'class_id'          => $request->class_id,
-            'roll_number'       => $request->roll_number,
+            // 'parent_id'         => $request->parent_id,
+            'departement_id'          => $request->departement_id,
+            // 'roll_number'       => $request->roll_number,
             'gender'            => $request->gender,
             'phone'             => $request->phone,
-            'dateofbirth'       => $request->dateofbirth,
-            'current_address'   => $request->current_address,
-            'permanent_address' => $request->permanent_address
+            // 'dateofbirth'       => $request->dateofbirth,
+            // 'current_address'   => $request->current_address,
+            // 'permanent_address' => $request->permanent_address
         ]);
 
         return redirect()->route('student.index');

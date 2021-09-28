@@ -111,6 +111,8 @@ Route::get('/declineApplicant/{id}', 'ApplyController@declineApplicant')->name('
 // to download a file
 Route::get('downloadApplicationLetter/{name}', 'ApplyController@downloadApplicationForm')->name('downloadApplicationLetter');
 
+// view a departement
+Route::get('/viewDepartement/{id}', 'ApplyController@viewDepartement')->name('viewDepartement');
 
 
 
@@ -145,9 +147,10 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
     Route::resource('subject', 'SubjectController');
     Route::resource('teacher', 'TeacherController');
     Route::resource('parents', 'ParentsController');
-    Route::resource('student', 'StudentController');
+    // Route::resource('student', 'StudentController');
     Route::get('attendance', 'AttendanceController@index')->name('attendance.index');
 });
+Route::resource('student', 'StudentController');
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 
 {

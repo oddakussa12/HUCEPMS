@@ -52,7 +52,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Roll Number
@@ -64,7 +64,7 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
@@ -94,17 +94,17 @@
                                 <input name="gender" class="mr-2 leading-tight" type="radio" value="female" {{ ($student->gender == 'female') ? 'checked' : '' }}>
                                 <span class="text-sm">Female</span>
                             </label>
-                            <label class="ml-4 block text-gray-500 font-bold">
+                            {{-- <label class="ml-4 block text-gray-500 font-bold">
                                 <input name="gender" class="mr-2 leading-tight" type="radio" value="other" {{ ($student->gender == 'other') ? 'checked' : '' }}>
                                 <span class="text-sm">Other</span>
-                            </label>
+                            </label> --}}
                         </div>
                         @error('gender')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Date of Birth
@@ -116,8 +116,8 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
+                </div> --}}
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Current Address
@@ -129,8 +129,8 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
+                </div> --}}
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Permanent Address
@@ -142,22 +142,22 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Assign Class
+                            Assign Departement
                         </label>
                     </div>
                     <div class="md:w-2/3 block text-gray-600 font-bold">
                         <div class="relative">
-                            <select name="class_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select name="departement_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="">--Select Class--</option>
-                                @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}"
-                                        {{ ($class->id === $student->class_id) ? 'selected' : '' }}
+                                @foreach ($departements as $departement)
+                                    <option value="{{ $departement->id }}"
+                                        {{ ($departement->id === $student->departement_id) ? 'selected' : '' }}
                                     >
-                                        {{ $class->class_name }}
+                                        {{ $departement->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -167,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Student Parent
@@ -190,7 +190,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">

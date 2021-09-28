@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Apply;
 use App\Student;
+use App\Departement;
 use App\User;
 use App\Mail\StudentApply;
 use App\Mail\ApplicationApproved;
@@ -169,9 +170,16 @@ class ApplyController extends Controller
         Mail::to($applicant->email)->send(new DeclineApplication($details));
         $applicant->delete();
         return redirect('/viewApplicants');
-
     }
     public function downloadApplicationForm($name){
         return response()->download(public_path().'/files/uploads/'.$name);
+    }
+    public function viewDepartement($id){
+        $departement = Departement::find($id);
+        // dd($departement);
+        $subjects = $departement->subjects;
+        // dd($subjects);
+        $Students = Student::where('departement_id',$id)->get();
+        return view('registrar.departement',compact('Students','departement','subjects'));
     }
 }
