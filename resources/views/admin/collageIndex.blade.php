@@ -23,8 +23,8 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Collage Name</th>
-                        <th scope="col">Program Type</th>
-                        <th scope="col">Program Level</th>
+                        {{-- <th scope="col">Program Type</th>
+                        <th scope="col">Program Level</th> --}}
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
@@ -35,8 +35,8 @@
                       <tr>
                         <th>{{$row}}</th>
                         <td>{{$collage->CollageName}}</td>
-                        <td>{{$collage->programType->name}}</td>
-                        <td>{{$collage->programLevel->name}}</td>
+                        {{-- <td>{{$collage->programType->name}}</td>
+                        <td>{{$collage->programLevel->name}}</td> --}}
                         <td><a href="/collage/edit/{{$collage->id}}" class="btn btn-success btn-sm" style="width:60px;">Edit</a><a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a></td>
                       </tr>
                       @endforeach

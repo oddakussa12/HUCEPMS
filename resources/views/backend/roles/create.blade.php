@@ -35,7 +35,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="md:flex mb-6">
+                {{-- <div class="md:flex mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
                             Permissions
@@ -53,7 +53,7 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
                 <div class="md:flex md:items-center">
                     <div class="md:w-1/3"></div>
                     <div class="md:w-2/3">

@@ -11,9 +11,12 @@
     <div class="card" style="margin-top:30px;">
         <div class="card-header">
             <div class="row">
-                <div class="col-sm-10"><h6>{{$collage->CollageName}}
-                    ( <span class="badge badge-info">{{$collage->programType->name}}</span>,
-                    <span class="badge badge-info">{{$collage->programLevel->name}}</span>  )</h6></div>
+                <div class="col-sm-10">
+                    <h6>{{$collage->CollageName}}
+                        {{-- ( <span class="badge badge-info">{{$collage->programType->name}}</span>, --}}
+                        {{-- <span class="badge badge-info">{{$collage->programLevel->name}}</span>  ) --}}
+                    </h6>
+                </div>
                 <div class="col-sm-2 text-right"><a class="btn btn-secondary btn-sm" href="create_departement/{{$collage->id}}">Add Departement</a></div>
             </div>
         </div>

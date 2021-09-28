@@ -16,8 +16,8 @@ class CreateCollagesTable extends Migration
         Schema::create('collages', function (Blueprint $table) {
             $table->id();
             $table->string('CollageName');
-            $table->integer('programtype_id');
-            $table->integer('programlevel_id');
+            $table->integer('programtype_id')->nullable();
+            $table->integer('programlevel_id')->nullable();
             $table->integer('registrar_id');
             $table->timestamps();
         });

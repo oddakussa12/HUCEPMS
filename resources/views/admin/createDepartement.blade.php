@@ -6,8 +6,9 @@
         <div class="row">
             <div class ="col-sm-10">
                 <h4 class="text-gray-700 uppercase font-bold">Create Departement
-                     ( <span class="badge badge-info">{{$collage->programType->name}}</span> ,
-                     <span class="badge badge-info">{{$collage->programLevel->name}}</span>)</h4>
+                     {{-- ( <span class="badge badge-info">{{$collage->programType->name}}</span> , --}}
+                     {{-- <span class="badge badge-info">{{$collage->programLevel->name}}</span>) --}}
+                </h4>
             </div>
             <div class="col-sm-2 text-right">
                 <a href="/departements" style="width:80px;" class="btn btn-secondary btn-sm">Back</a>

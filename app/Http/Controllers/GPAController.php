@@ -63,8 +63,8 @@ class GPAController extends Controller
     {
         //
     }
-    public function departementGPA(){
-        $departement = Departement::find(1);
+    public function departementGPA($id){
+        $departement = Departement::find($id);
         // dd($departement);
         $students = $departement->students;
         // dd($students);
@@ -104,7 +104,9 @@ class GPAController extends Controller
             }//end subjects loop
             $semisterGPA = $totalSubjectsAverage/$totalCreditHr;
             $gpa->GPA = $semisterGPA;
+            // dd($semisterGPA);
             $gpa->save();
+            return redirect('/home');
         }//end students subject   
     }
 }

@@ -87,7 +87,7 @@ Route::post('/apply','ApplyController@store')->name('apply');
 // email sending when student applying
 Route::get('my-demo-mail','ApplyController@sendApplicationEmail');
 // route by Registrar
-Route::get('/calculateDepartementGPA', 'GPAController@departementGPA')->name('calculateDepartementGPA');
+Route::get('/calculateDepartementGPA/{id}', 'GPAController@departementGPA')->name('calculateDepartementGPA');
 
 
 

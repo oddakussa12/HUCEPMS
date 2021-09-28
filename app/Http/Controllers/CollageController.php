@@ -36,15 +36,15 @@ class CollageController extends Controller
     {
         $this->validate($request,[
             'CollageName' => 'required',
-            'ProgramType' => 'required',
-            'ProgramLevel' => 'required',
+            // 'ProgramType' => 'required',
+            // 'ProgramLevel' => 'required',
             'registrar_id' => 'required'
         ]);
         
         $collage = new Collage();
         $collage->CollageName = $request->CollageName;
-        $collage->programlevel_id = $request->ProgramLevel;
-        $collage->programtype_id = $request->ProgramType;
+        // $collage->programlevel_id = $request->ProgramLevel;
+        // $collage->programtype_id = $request->ProgramType;
         $collage->registrar_id = $request->registrar_id;
         $collage->save();
         $notificationn = array(
