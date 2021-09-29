@@ -64,9 +64,9 @@
                     <div class="col-sm-6">
                         <h4>Students</h4>
                     </div>
-                    <div class="col-sm-6 text-right">
+                    {{-- <div class="col-sm-6 text-right">
                         <a href="#" class = "btn btn-primary btn-sm">Create Student</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="card-body">
@@ -78,7 +78,7 @@
                         <th scope="col">Gender</th>
                         <th scope="col">Phone number</th>
                         <th scope="col">Email Address</th>
-                        <th scope="col">Actions</th>
+                        {{-- <th scope="col">Actions</th> --}}
                       </tr>
                     </thead>
                     <tbody>
@@ -92,7 +92,7 @@
                                 <td>{{$student->gender}}</td>
                                 <td>{{$student->phone}}</td>
                                 <td>{{$student->user->email}}</td>
-                                <td><button class="btn btn-success btn-sm">Edit</button></td>
+                                {{-- <td><button class="btn btn-success btn-sm">Edit</button></td> --}}
                             </tr>
                             @php
                                 $count++;
