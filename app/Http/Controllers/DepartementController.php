@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Departement;
+use Illuminate\Support\Facades\Auth;
 use App\Collage;
 use App\Subject;
 use App\User;
@@ -28,9 +29,10 @@ class DepartementController extends Controller
         foreach($heads as $head){
             $headUsers[] = User::where('id', $head->model_id)->first();
         }
+
         // dd($headUsers);
         // subjects in this collage
-        $subjects = Subject::where('collage_id',$id)->get();
+        $subjects = Subject::all();
         return view('admin.createDepartement',compact('collages','collage','subjects','headUsers'));
     }
 
@@ -48,9 +50,9 @@ class DepartementController extends Controller
         $departement->collage_id = $request->CollageName;
         $departement->head_user_id = $request->DepartementHead_id;
         $departement->save();
-        foreach ($request->subjects as $subject){
-            $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
-        }
+        // foreach ($request->subjects as $subject){
+        //     $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
+        // }
 
         $notificationn = array(
             'message' =>'Departement created successfully',
@@ -72,9 +74,13 @@ class DepartementController extends Controller
         $collage = $dept->collage;
         // $collage = Collage::where('id',$id)->first();
         // subjects in this collage
-        $subjects = Subject::where('collage_id',$collage->id)->get();
+        $subjects = Subject::all();
+        $heads = DB::select('select * from model_has_roles where role_id = ?', [5]);
+        foreach($heads as $head){
+            $headUsers[] = User::where('id', $head->model_id)->first();
+        }
         // dd($subjects);
-        return view('admin.editDepartement',compact('collages','dept','collage','subjects'));
+        return view('admin.editDepartement',compact('collages','dept','collage','subjects','headUsers'));
     }
 
    
@@ -83,17 +89,19 @@ class DepartementController extends Controller
         $this->validate($request,[
             'DepartementName' => 'required',
             'CollageName' => 'required',
+            'DepartementHead_id' => 'required',
         ]);
     
 
         $departement = Departement::where('id',$id)->first();
         $departement->name = $request->DepartementName;
         $departement->collage_id = $request->CollageName;
+        $departement->head_user_id = $request->DepartementHead_id;
         $departement->save();
-        foreach ($request->subjects as $subject){
-            $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
-            // $departement->subjects()->sync($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
-        }
+        // foreach ($request->subjects as $subject){
+        //     $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
+        //     // $departement->subjects()->sync($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
+        // }
         
         $notificationn = array(
             'message' =>'Departement updated successfully',
@@ -107,4 +115,26 @@ class DepartementController extends Controller
     {
         //
     }
+
+    public function addSubjectToDepartement(){
+       
+        $subjects = Subject::all();
+        $dept = Departement::where('head_user_id',Auth::user()->id)->first();
+        return view('DepHead.addCourse',compact('subjects','dept'));
+    }
+    public function addSubjectToDepartementPost(Request $request){
+        // dd($request);
+        $departement = Departement::where('head_user_id',Auth::user()->id)->first();
+        // dd($departement);
+        foreach ($request->subjects as $subject){
+            $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
+        }
+
+        $notificationn = array(
+            'message' =>'Courses added successfully to departement',
+            'alert-type' =>'success'
+        );
+        return redirect('/home')->with($notificationn);
+    }
+
 }

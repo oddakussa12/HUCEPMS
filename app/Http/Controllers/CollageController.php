@@ -48,7 +48,7 @@ class CollageController extends Controller
         $collage->registrar_id = $request->registrar_id;
         $collage->save();
         $notificationn = array(
-            'message' =>'Collage created successfully',
+            'message' =>'Study program created successfully',
             'alert-type' =>'success'
         );
         return redirect('/collages')->with($notificationn);
@@ -65,7 +65,12 @@ class CollageController extends Controller
         $collage = Collage::where('id',$id)->first();
         $pls = ProgramLevel::all();
         $pts = ProgramType::all();
-        return view('admin.editCollage',compact('collage','pls','pts'));
+        $registrars = DB::select('select * from model_has_roles where role_id = ?', [6]);
+        // dd($registrars);
+        foreach($registrars as $registrar){
+            $registarUsers[] = User::where('id',$registrar->model_id)->first();
+        }
+        return view('admin.editCollage',compact('collage','pls','pts','registarUsers'));
     }
 
     

@@ -96,7 +96,10 @@ Route::get('/calculateDepartementGPA/{id}', 'GPAController@departementGPA')->nam
 Route::get('/editSubjectInDepart/{id}', 'SubjectController@editSubject')->name('editSubjectInDepart');
 // route to edit a subject 
 Route::post('/editSubjectInDepart', 'SubjectController@editSubjectPost')->name('editSubjectInDepart');
-
+// add course to departement get method
+Route::get('/addCourse', 'DepartementController@addSubjectToDepartement')->name('addCourse');
+// add course to departement post method
+Route::post('/addCoursePost', 'DepartementController@addSubjectToDepartementPost')->name('addCoursePost');
 
 // route by the registarUsers
 // route to fetch all the applicants under specific collage

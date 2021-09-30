@@ -12,7 +12,7 @@ class Subject extends Model
         'subject_code',
         // 'teacher_id',
         'description',
-        'collage_id',
+        // 'collage_id',
         'credit_hr',
     ];
 

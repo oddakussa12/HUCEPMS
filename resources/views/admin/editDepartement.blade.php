@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <div class = "row">
                             <div class = "col-sm-4 text-right">
-                                <label class="control-label">Select Collage</label>
+                                <label class="control-label">Select Program</label>
                             </div>
                             <div class = "col-sm-7">
                                 <select class="form-control" name="CollageName">
@@ -47,7 +47,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12" style="margin-top:30px;">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class = "row">
+                            <div class = "col-sm-4 text-right">
+                                <label class="control-label">Assign Departement Head</label>
+                            </div>
+                            <div class = "col-sm-7">
+                                <select class="form-control" name="DepartementHead_id">
+                                    <option selected disabled>Please select</option>
+                                    @foreach ($headUsers as $head)
+                                    <option value={{$head->id}}>{{$head->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="col-sm-12" style="margin-top:30px;">
                     <h6>Please assign subjects for this departement</h6>
                     <br />
                     @foreach ($subjects as $subject )
@@ -67,7 +84,7 @@
                             </label>
                         </div>
                     @endforeach
-                </div>
+                </div> --}}
 
                 
                 <div class="col-sm-12">

@@ -5,7 +5,7 @@
 <div class="home">
         <div class="row">
             <div class ="col-sm-6">
-                <h4 class="text-gray-700 uppercase font-bold">Create collage</h4>
+                <h4 class="text-gray-700 uppercase font-bold">Create study program</h4>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="/collages" style="width:80px;" class="btn btn-secondary btn-sm">Back</a>
@@ -19,10 +19,10 @@
                     <div class="form-group">
                         <div class = "row">
                             <div class = "col-sm-4 text-right">
-                                <label class="control-label">Collage name</label>
+                                <label class="control-label">Program name</label>
                             </div>
                             <div class = "col-sm-7">
-                                <input type="input" name="CollageName" class="form-control" placeholder="Collage name..." />
+                                <input type="input" name="CollageName" class="form-control" placeholder="Program name..." />
                             </div>
                         </div>
                     </div>

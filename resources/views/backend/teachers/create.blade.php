@@ -86,10 +86,10 @@
                                 <input name="gender" class="mr-2 leading-tight" type="radio" value="female">
                                 <span class="text-sm">Female</span>
                             </label>
-                            <label class="ml-4 block text-gray-500 font-bold">
+                            {{-- <label class="ml-4 block text-gray-500 font-bold">
                                 <input name="gender" class="mr-2 leading-tight" type="radio" value="other">
                                 <span class="text-sm">Other</span>
-                            </label>
+                            </label> --}}
                         </div>
                         @error('gender')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>

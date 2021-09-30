@@ -16,7 +16,7 @@
                         <h4>Courses</h4>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="#" class = "btn btn-primary btn-sm">Create course</a>
+                        <a href="/addCourse" class = "btn btn-primary btn-sm">Add course</a>
                     </div>
                 </div>
             </div>

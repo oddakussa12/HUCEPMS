@@ -5,14 +5,14 @@
 <div class="home">
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h4 class="text-gray-700 uppercase font-bold">Collages</h4>
+            <h4 class="text-gray-700 uppercase font-bold">Study programes</h4>
         </div>
     </div>
     <div class="container-fluid" style="padding:0px;">
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class = "col-sm-6"><h5>Collages</h5></div>
+                    <div class = "col-sm-6"><h5>Programs</h5></div>
                     <div class ="col-sm-6 text-right">
                       <a href="/create_collage" class="btn btn-secondary btn-sm" style="width:80px;">Create</a></div>
                 </div>

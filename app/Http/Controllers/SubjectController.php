@@ -38,7 +38,7 @@ class SubjectController extends Controller
             'name'          => 'required|string|max:255|unique:subjects',
             'subject_code'  => 'required|numeric|unique:subjects',
             // 'teacher_id'    => 'required|numeric',
-            'collage_id'    => 'required',
+            // 'collage_id'    => 'required',
             'description'   => 'required|string|max:255',
             'credit_hr'     => 'required|numeric'
         ]);
@@ -55,7 +55,7 @@ class SubjectController extends Controller
         $subject->name = $request->name;
         $subject->slug = Str::slug($request->name);
         $subject->subject_code = $request->subject_code;
-        $subject->collage_id = $request->collage_id;
+        // $subject->collage_id = $request->collage_id;
         $subject->description = $request->description;
         $subject->credit_hr = $request->credit_hr;
 
@@ -87,7 +87,7 @@ class SubjectController extends Controller
         $request->validate([
             'name'          => 'required|string|max:255|unique:subjects,name,'.$subject->id,
             'subject_code'  => 'required|numeric',
-            'teacher_id'    => 'required|numeric',
+            // 'teacher_id'    => 'required|numeric',
             'description'   => 'required|string|max:255'
         ]);
 
@@ -95,9 +95,10 @@ class SubjectController extends Controller
             'name'          => $request->name,
             'slug'          => Str::slug($request->name),
             'subject_code'  => $request->subject_code,
-            'teacher_id'    => $request->teacher_id,
+            // 'teacher_id'    => $request->teacher_id,
             'description'   => $request->description
         ]);
+        $subject->teachers()->sync($request->teacher_id);
 
         return redirect()->route('subject.index');
     }

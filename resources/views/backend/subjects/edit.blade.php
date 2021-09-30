@@ -58,7 +58,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
+                {{-- <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Assign Teacher
@@ -83,6 +83,23 @@
                         @error('teacher_id')
                             <p class="text-red-500 text-xs font-normal italic">{{ $message }}</p>
                         @enderror
+                    </div>
+                </div> --}}
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-sm-4">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Assign Teacher
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        @foreach ($teachers as $teacher )
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                <input type="checkbox" name="teacher_id[]"  class="form-check-input" value={{$teacher->id}}>
+                                    {{$teacher->user->name}}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
