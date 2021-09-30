@@ -97,11 +97,6 @@ class DepartementController extends Controller
         $departement->name = $request->DepartementName;
         $departement->collage_id = $request->CollageName;
         $departement->head_user_id = $request->DepartementHead_id;
-        $departement->save();
-        // foreach ($request->subjects as $subject){
-        //     $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
-        //     // $departement->subjects()->sync($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
-        // }
         
         $notificationn = array(
             'message' =>'Departement updated successfully',
@@ -126,6 +121,8 @@ class DepartementController extends Controller
         // dd($request);
         $departement = Departement::where('head_user_id',Auth::user()->id)->first();
         // dd($departement);
+        $departement->subjects()->detach();
+        
         foreach ($request->subjects as $subject){
             $departement->subjects()->attach($subject,['teacher_id' => $request->input('teacher_id'.$subject)]);
         }

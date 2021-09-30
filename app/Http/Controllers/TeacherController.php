@@ -98,7 +98,7 @@ class TeacherController extends Controller
             'email'             => 'required|string|email|max:255|unique:users,email,'.$teacher->user_id,
             'gender'            => 'required|string',
             'phone'             => 'required|string|max:255',
-            'dateofbirth'       => 'required|date',
+            // 'dateofbirth'       => 'required|date',
             'current_address'   => 'required|string|max:255',
             'permanent_address' => 'required|string|max:255'
         ]);
@@ -121,7 +121,7 @@ class TeacherController extends Controller
         $user->teacher()->update([
             'gender'            => $request->gender,
             'phone'             => $request->phone,
-            'dateofbirth'       => $request->dateofbirth,
+            // 'dateofbirth'       => $request->dateofbirth,
             'current_address'   => $request->current_address,
             'permanent_address' => $request->permanent_address
         ]);

@@ -7,6 +7,7 @@ use App\Grade;
 use Auth;
 use App\GPA;
 use App\Parents;
+use App\Collage;
 use App\Student;
 use App\Grad;
 use App\Departement;
@@ -36,6 +37,13 @@ class StudentController extends Controller
         $parents = Parents::with('user')->latest()->get();
         
         return view('backend.students.create', compact('classes','parents','departements'));
+    }
+    public function createStudentByRegistrar(){
+        $user = Auth::user()->id;
+        $program = Collage::where('registrar_id',$user)->first();
+        $departements = $program->departements;
+        // dd($departements);
+        return view('backend.students.create', compact('departements'));
     }
 
     public function store(Request $request)

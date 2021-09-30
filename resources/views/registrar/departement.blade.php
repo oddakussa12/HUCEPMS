@@ -65,7 +65,7 @@
                         <h4>Students</h4>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{ route('student.create') }}" class = "btn btn-secondary btn-sm">Create Student</a>
+                        <a href="/createStudent" class = "btn btn-secondary btn-sm">Create Student</a>
                     </div>
                 </div>
             </div>

@@ -117,6 +117,9 @@ Route::get('downloadApplicationLetter/{name}', 'ApplyController@downloadApplicat
 // view a departement
 Route::get('/viewDepartement/{id}', 'ApplyController@viewDepartement')->name('viewDepartement');
 
+// create student account
+Route::get('/createStudent', 'StudentController@createStudentByRegistrar')->name('createStudent');
+
 
 
 
