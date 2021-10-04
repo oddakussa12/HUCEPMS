@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'profile_picture'
+        'name', 'email', 'password', 'profile_picture','is_active'
     ];
 
     /**
@@ -52,6 +52,10 @@ class User extends Authenticatable
     public function parent()
     {
         return $this->hasOne(Parents::class);
+    }
+
+    public function recipet(){
+        return $this->hasOne('App\Recipet');
     }
    
     

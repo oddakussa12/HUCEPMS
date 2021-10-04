@@ -69,7 +69,12 @@ class HomeController extends Controller
             
             $student = Student::with(['user','parent','class','attendances'])->findOrFail($user->student->id); 
 
-            return view('home', compact('student'));
+            if($user->is_active == 0){
+                return view('student.uploadRecipt');
+            }else{
+                return view('home', compact('student'));
+            }
+            
 
         } else {
             return 'NO ROLE ASSIGNED YET!';

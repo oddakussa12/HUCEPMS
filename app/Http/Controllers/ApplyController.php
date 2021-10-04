@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Apply;
 use App\Student;
 use App\Departement;
+use App\Recipet;
 use App\User;
 use App\Mail\StudentApply;
 use App\Mail\ApplicationApproved;
@@ -181,5 +182,31 @@ class ApplyController extends Controller
         // dd($subjects);
         $Students = Student::where('departement_id',$id)->get();
         return view('registrar.departement',compact('Students','departement','subjects'));
+    }
+
+    public function uploadRecipt(Request $request){
+        // dd($request);
+        $request->validate([
+            'recipt' => 'required',
+        ]);
+        $userId = Auth::user()->id;
+        $student = Student::where('user_id',$userId)->first();
+        // dd($student);
+        $collage = $student->departement->collage;
+        // dd($collage_id);
+        // dd($userId);
+        $recipt = new Recipet();
+        $recipt->user_id = $userId;
+        $recipt->collage_id = $collage->id;
+        if($request->file('recipt')) 
+        {
+            $file = $request->file('recipt');
+            $filename = time() . '.' . $request->file('recipt')->extension();
+            $filePath = public_path() . '/files/uploads/';
+            $file->move($filePath, $filename);
+            $recipt->file_name = $filename;
+        }
+        $recipt->save();
+        return redirect('/home');
     }
 }

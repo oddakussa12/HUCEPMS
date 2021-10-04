@@ -24,6 +24,10 @@ Route::get('/student_courses','StudentController@getStudentCourses')->name('stud
 Route::get('/course_details/{id}','StudentController@getCourse')->name('course_details');
 Route::get('/gradeReport' , 'StudentController@gradeReport')->name('gradeReport');
 
+// upload ricipt
+Route::post('/uploadrecipt', 'ApplyController@uploadRecipt')->name('uploadrecipt');
+
+
 // route for Admin
 // return study program dashboard
 Route::get('programes','ProgramLevelController@index')->name('programes');
