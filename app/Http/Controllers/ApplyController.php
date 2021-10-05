@@ -9,6 +9,8 @@ use App\Recipet;
 use App\User;
 use App\Mail\StudentApply;
 use App\Mail\ApplicationApproved;
+use App\Mail\ReceiptApproved;
+use App\Mail\ReceiptRejected;
 use App\Mail\DeclineApplication;
 use Illuminate\Support\Facades\Hash;
 use Mail;
@@ -195,18 +197,90 @@ class ApplyController extends Controller
         $collage = $student->departement->collage;
         // dd($collage_id);
         // dd($userId);
-        $recipt = new Recipet();
-        $recipt->user_id = $userId;
-        $recipt->collage_id = $collage->id;
-        if($request->file('recipt')) 
-        {
-            $file = $request->file('recipt');
-            $filename = time() . '.' . $request->file('recipt')->extension();
-            $filePath = public_path() . '/files/uploads/';
-            $file->move($filePath, $filename);
-            $recipt->file_name = $filename;
+        $receipt = Recipet::where('user_id',$userId)->first();
+        // dd($receipt);
+        if($receipt == null){
+            $recipt = new Recipet();
+            $recipt->user_id = $userId;
+            $recipt->collage_id = $collage->id;
+            if($request->file('recipt')) 
+            {
+                $file = $request->file('recipt');
+                $filename = time() . '.' . $request->file('recipt')->extension();
+                $filePath = public_path() . '/files/uploads/';
+                $file->move($filePath, $filename);
+                $recipt->file_name = $filename;
+            }
+            $recipt->save();
         }
-        $recipt->save();
-        return redirect('/home');
+        if($receipt != null){
+            if($request->file('recipt')) 
+            {
+                $file = $request->file('recipt');
+                $filename = time() . '.' . $request->file('recipt')->extension();
+                $filePath = public_path() . '/files/uploads/';
+                $file->move($filePath, $filename);
+                $receipt->file_name = $filename;
+            }
+            $receipt->save();
+        }
+
+        
+        // return redirect('/home');
+        return back()->with('success','You have uploaded receipt successfully, We will validate it and notify you on your email.');
     }
+
+    public function viewReceipts(){
+        $user = Auth::user()->id;
+        // dd($user);
+        $collage = Collage::where('registrar_id',$user)->first();
+        // dd($collage);
+        $recipets = Recipet::where('collage_id',$collage->id)->get();
+        return view('registrar.receipt',compact('recipets','collage'));
+        
+    }
+    public function downloadReceipt($name){
+        return response()->download(public_path().'/files/uploads/'.$name);
+    }
+    public function approveReceipt($id){
+        $receipt = Recipet::find($id);
+        // dd($receipt);
+        $user = User::where('id',$receipt->user_id)->first();
+        $user->is_active = 1;
+        
+        $receipt->delete();
+        // send email to the student
+        $userEmail = $user->email;
+   
+        $detail = [
+            'title' => 'Congratulations your account has been activated',
+            'url' => 'http://localhost:8000',
+            'user' => $user->name,
+        ];
+        // dd($user->name);
+  
+        Mail::to($userEmail)->send(new ReceiptApproved($detail));
+        $user->save();
+        return redirect('/viewReceipts');
+    }
+    public function declineReceipt($id){
+        $receipt = Recipet::find($id);
+        // dd($receipt);
+        $user = User::where('id',$receipt->user_id)->first();
+
+        $receipt->delete();
+        // send email to the student
+        $userEmail = $user->email;
+   
+        $detail = [
+            'title' => 'Receipt Declined',
+            'url' => 'http://localhost:8000',
+            'user' => $user->name,
+        ];
+        // dd($user->name);
+  
+        Mail::to($userEmail)->send(new ReceiptRejected($detail));
+        return redirect('/viewReceipts');
+    }
+
 }

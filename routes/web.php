@@ -123,7 +123,14 @@ Route::get('/viewDepartement/{id}', 'ApplyController@viewDepartement')->name('vi
 
 // create student account
 Route::get('/createStudent', 'StudentController@createStudentByRegistrar')->name('createStudent');
+Route::get('/viewReceipts', 'ApplyController@viewReceipts')->name('viewReceipts');
+// download receipt
+Route::get('downloadReceipt/{name}', 'ApplyController@downloadReceipt')->name('downloadReceipt');
+// approve receipt
+Route::get('/approveReceipt/{id}', 'ApplyController@approveReceipt')->name('approveReceipt');
 
+// rejected receipt
+Route::get('/rejectReceipt/{id}', 'ApplyController@declineReceipt')->name('rejectReceipt');
 
 
 
