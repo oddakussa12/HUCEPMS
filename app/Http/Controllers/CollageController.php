@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Collage;
 use App\ProgramLevel;
 use Validator;
+use App\Departement;
 use App\ProgramType;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -24,10 +25,15 @@ class CollageController extends Controller
         $pls = ProgramLevel::all();
         $pts = ProgramType::all();
         $registrars = DB::select('select * from model_has_roles where role_id = ?', [6]);
-        // dd($registrars);
-        foreach($registrars as $registrar){
-            $registarUsers[] = User::where('id',$registrar->model_id)->first();
+        if($registrars != null){
+             // dd($registrars);
+            foreach($registrars as $registrar){
+                $registarUsers[] = User::where('id',$registrar->model_id)->first();
+            }
+        }else{
+            $registarUsers = null;
         }
+       
         // dd($registarUsers);
         return view('admin.createCollage',compact('pls','pts','registarUsers'));
     }
@@ -77,15 +83,17 @@ class CollageController extends Controller
     public function update(Request $request, Collage $collage, $id)
     {
         $this->validate($request,[
+            // 'ProgramType' => 'required',
+            // 'ProgramLevel' => 'required',
             'CollageName' => 'required',
-            'ProgramType' => 'required',
-            'ProgramLevel' => 'required',
+            'registrar_id' => 'required'
         ]);
         
         $collage = Collage::where('id',$id)->first();
         $collage->CollageName = $request->CollageName;
-        $collage->programtype_id = $request->ProgramType;
-        $collage->programlevel_id = $request->ProgramLevel;
+        $collage->registrar_id = $request->registrar_id;
+        // $collage->programtype_id = $request->ProgramType;
+        // $collage->programlevel_id = $request->ProgramLevel;
         $collage->Save();
         $notificationn = array(
             'message' =>'Collage updated successfully',
@@ -95,8 +103,12 @@ class CollageController extends Controller
     }
 
    
-    public function destroy(Collage $collage)
+    public function destroy($id)
     {
-        //
+        $collage = Collage::find($id);
+        Departement::where('collage_id',$collage->id)->delete();
+        $collage->delete();
+        $collage->delete();
+        return redirect()->back();
     }
 }

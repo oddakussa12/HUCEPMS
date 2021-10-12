@@ -36,9 +36,13 @@
                             <div class = "col-sm-7">
                                 <select class="form-control" name="registrar_id">
                                     <option>-- Please select --</option>
-                                    @foreach ($registarUsers as $registarUser)
-                                    <option value={{$registarUser->id}}>{{$registarUser->name}}</option>
-                                    @endforeach
+                                    @if ($registarUsers != null)
+                                        @foreach ($registarUsers as $registarUser)
+                                            <option value={{$registarUser->id}}>{{$registarUser->name}}</option>
+                                        @endforeach
+                                        @else
+                                        <option disabled >Please create registrar user account first</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>

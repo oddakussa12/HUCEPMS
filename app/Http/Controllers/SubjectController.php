@@ -88,7 +88,8 @@ class SubjectController extends Controller
             'name'          => 'required|string|max:255|unique:subjects,name,'.$subject->id,
             'subject_code'  => 'required|numeric',
             // 'teacher_id'    => 'required|numeric',
-            'description'   => 'required|string|max:255'
+            'description'   => 'required|string|max:255',
+            'credit_hr'     => 'required|numeric'
         ]);
 
         $subject->update([
@@ -96,7 +97,8 @@ class SubjectController extends Controller
             'slug'          => Str::slug($request->name),
             'subject_code'  => $request->subject_code,
             // 'teacher_id'    => $request->teacher_id,
-            'description'   => $request->description
+            'description'   => $request->description,
+            'credit_hr'     => $request->credit_hr
         ]);
         $subject->teachers()->sync($request->teacher_id);
 

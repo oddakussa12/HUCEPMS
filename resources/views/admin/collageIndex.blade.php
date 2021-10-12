@@ -25,7 +25,7 @@
                         <th scope="col">Collage Name</th>
                         {{-- <th scope="col">Program Type</th>
                         <th scope="col">Program Level</th> --}}
-                        <th scope="col">Actions</th>
+                        <th scope="col" class="text-center">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -37,7 +37,22 @@
                         <td>{{$collage->CollageName}}</td>
                         {{-- <td>{{$collage->programType->name}}</td>
                         <td>{{$collage->programLevel->name}}</td> --}}
-                        <td><a href="/collage/edit/{{$collage->id}}" class="btn btn-success btn-sm" style="width:60px;">Edit</a><a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a></td>
+                        <td>
+                          <div class="row">
+                            <div class="col-sm-6 text-right">
+                              <a href="/collage/edit/{{$collage->id}}" class="btn btn-success btn-sm" style="width:60px;">Edit</a>
+                            </div>
+                            <div class="col-sm-6">
+                              <form action="/deleteCollage/{{$collage->id}}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button style="margin-left:10px;" class="btn btn-danger btn-sm"
+                                    type="submit">Delete
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                       @endforeach
                     </tbody>

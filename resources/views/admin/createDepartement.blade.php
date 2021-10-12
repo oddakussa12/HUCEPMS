@@ -56,9 +56,14 @@
                             <div class = "col-sm-7">
                                 <select class="form-control" name="DepartementHead_id">
                                     <option selected disabled>Please select</option>
-                                    @foreach ($headUsers as $head)
-                                    <option value={{$head->id}}>{{$head->name}}</option>
-                                    @endforeach
+                                    @if ($headUsers != null)
+                                        @foreach ($headUsers as $head)
+                                        <option value={{$head->id}}>{{$head->name}}</option>
+                                        @endforeach
+                                        @else
+                                        <option disabled>Please create departement head users first</option>
+                                    @endif
+                                    
                                 </select>
                             </div>
                         </div>

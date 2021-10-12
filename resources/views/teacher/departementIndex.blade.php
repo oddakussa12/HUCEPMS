@@ -27,7 +27,7 @@
                         <th scope="col">Resouce Name</th>
                         <th scope="col">Resouce</th>
                         <th>Uploaded On</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,9 +40,26 @@
                             <td>{{$resouce->filename}}</td>
                             <td>{{$resouce->updated_at}}</td>
                             <td>
-                                <a href="#" class="btn btn-primary btn-sm editresourcebut" data-resoid={{$resouce->id}} >Update</a>
-                                <a href="/get/{{$resouce->filename}}/{{$resouce->name}}" class="btn btn-success btn-sm">Dwonload</a>
-                                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3 text-right">
+                                        <a href="#" class="btn btn-primary btn-sm editresourcebut" data-resoid={{$resouce->id}} >Update</a>
+                                    </div>
+                                    <div class="col-sm-3 text-right">
+                                        <a href="/get/{{$resouce->filename}}/{{$resouce->name}}" class="btn btn-success btn-sm">Dwonload</a>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <form action="/deleteResource/{{$resouce->id}}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button style="margin-left:10px;" class="btn btn-danger btn-sm"
+                                            type="submit">Delete
+                                        </button>
+                                        </form>
+                                    </div>
+                                </div>
+
                             </td>
                         </tr>
                         @endforeach

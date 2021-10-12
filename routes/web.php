@@ -50,6 +50,8 @@ Route::get('/create_collage','CollageController@create')->name('create_collage')
 Route::post('/create_collage','CollageController@store')->name('create_collage');
 // return edit page for collage
 Route::get('/collage/edit/{id}','CollageController@edit');
+// delete collage
+Route::delete('/deleteCollage/{id}','CollageController@destroy');
 
 // return post request for updating collage
 Route::post('/update_collage/{id}','CollageController@update');
@@ -66,6 +68,8 @@ Route::get('/edit_departement/{id}','DepartementController@edit')->name('edit_de
 // reoute to create departement
 Route::post('/edit_dept/{id}','DepartementController@update')->name('edit_dept');
 
+Route::delete('/deleteDepartement/{id}','DepartementController@destroy');
+
 // route for teacher
 // when teacher click on specific departement
 Route::get('/teacher_departement/{dept}/{sub}','TeacherController@viewDepartement')->name('teacher_departement');
@@ -76,6 +80,9 @@ Route::get('get/{filename}/{name}', 'TeacherController@getFile')->name('getfile'
 // update resources
 Route::post('/update_resource', 'TeacherController@updateResource')->name('update_resource');
 // bulk insert exam results
+// delete resouce
+Route::delete('/deleteResource/{id}','TeacherController@deleteResource');
+
 Route::post('/insert_result', 'TeacherController@bulkInsertExamResult')->name('insert_result');
 // bulk update exam results
 Route::post('/update_result', 'TeacherController@bulkUpdateExamResult')->name('update_result');

@@ -26,9 +26,14 @@ class DepartementController extends Controller
         $collage = Collage::where('id',$id)->first();
         // get all users with role departement_head
         $heads = DB::select('select * from model_has_roles where role_id = ?', [5]);
-        foreach($heads as $head){
-            $headUsers[] = User::where('id', $head->model_id)->first();
+        if($heads != null){
+            foreach($heads as $head){
+                $headUsers[] = User::where('id', $head->model_id)->first();
+            }
+        }else{
+            $headUsers = null;
         }
+        
 
         // dd($headUsers);
         // subjects in this collage
@@ -97,6 +102,7 @@ class DepartementController extends Controller
         $departement->name = $request->DepartementName;
         $departement->collage_id = $request->CollageName;
         $departement->head_user_id = $request->DepartementHead_id;
+        $departement->save();
         
         $notificationn = array(
             'message' =>'Departement updated successfully',
@@ -106,9 +112,11 @@ class DepartementController extends Controller
     }
 
     
-    public function destroy(Departement $departement)
+    public function destroy($id)
     {
-        //
+        $departement = Departement::find($id);
+        $departement->delete();
+        return redirect()->back();
     }
 
     public function addSubjectToDepartement(){

@@ -206,6 +206,13 @@ class TeacherController extends Controller
         $resource->save();
         return response()->json(['success'=> 'Resource Updated Successfully.']); 
     }    
+
+    public function deleteResource($id){
+        // dd("delete");
+        $resource = Resource::find($id);
+        $resource->delete();
+        return redirect()->back();
+    }
     public function getFile($filename,$name){
         return response()->download(public_path().'/files/uploads/'.$filename,$name.'-'.$filename);
     }

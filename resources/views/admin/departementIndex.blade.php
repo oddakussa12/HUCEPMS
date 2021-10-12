@@ -7,6 +7,13 @@
     </div>
 </div>
 <div class="container-fluid" style="padding:0px;">
+    @if ($collages->isEmpty())
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h5>To create departement, You have to create programs first.</h5>
+            </div>
+        </div>
+    @endif
     @foreach($collages as $collage)
     <div class="card" style="margin-top:30px;">
         <div class="card-header">
@@ -38,8 +45,21 @@
                         <th>{{$row}}</th>
                         <td>{{$dept->name}}</td>
                         <td>{{count($dept->subjects)}}</td>
-                        <td><a href="edit_departement/{{$dept->id}}" class="btn btn-success btn-sm" style="width:60px;">Edit</a>
-                            <a style="margin-left:10px;" class="btn btn-danger btn-sm"href="#">Delete</a>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-6 text-right">
+                                    <a href="edit_departement/{{$dept->id}}" class="btn btn-success btn-sm" style="width:60px;">Edit</a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <form action="/deleteDepartement/{{$dept->id}}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button style="margin-left:10px;" class="btn btn-danger btn-sm"
+                                        type="submit">Delete
+                                    </button>
+                                    </form>
+                                </div>
+                            </div>
                         </td>
                       </tr>
                     @endforeach
