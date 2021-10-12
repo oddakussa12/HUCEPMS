@@ -153,8 +153,9 @@ class TeacherController extends Controller
         $departement = Departement::where('id',$dept)->first();
         $students = Student::where('departement_id',$dept)->get();
         $subject = Subject::where('id',$sub)->first();
+        $exams = $subject->exams;
         $resources = Resource::where('subject_id',$sub)->get();
-        return view('teacher.departementIndex',compact('departement','students','resources','subject'));
+        return view('teacher.departementIndex',compact('departement','students','resources','subject','exams'));
     }
     public function addResource(Request $request){
         // dd($request);
@@ -229,6 +230,13 @@ class TeacherController extends Controller
 
         $studentSize = sizeOf($request->stud_id);
         $exam = Exam::find($request->examId);
+        $examValue = $exam->value;
+        // if mark greaterthan exam value stop
+        for($i = 0; $i < count($request->stud_id); $i++){
+            if($request->ExamResult[$i] > $examValue){
+                return response()->json(['success'=> 'Error, some records are above exam weight']); 
+            } 
+        }
         $sync_data = [];
         for($i = 0; $i < count($request->stud_id); $i++){
             $sync_data[$request->stud_id[$i]] = ['mark' => $request->ExamResult[$i]];
@@ -239,7 +247,7 @@ class TeacherController extends Controller
         return response()->json(['success'=> 'Exam result recorded successfully.']); 
     }
     public function bulkUpdateExamResult(Request $request){
-        Log::info($request->examId);
+        // Log::info($request->examId);
 
         $rules = array(
             'ExamResult' => 'required',
@@ -251,6 +259,8 @@ class TeacherController extends Controller
 
         $studentSize = sizeOf($request->stud_id);
         $exam = Exam::find($request->examId);
+        $examValue = $exam->value;
+        dd($examValue);
         for($i=0 ; $i<$studentSize ; $i++){
             $exam->students()->updateExistingPivot($request->stud_id[$i], ['mark' => $request->ExamResult[$i]]);
         }
@@ -261,18 +271,36 @@ class TeacherController extends Controller
         $rules = array(
             'subjectid' => 'required',
             'AssesementName' => 'required',
+            'value' => 'required',
         );
         $error = Validator::make($request->all(),$rules);
         if($error->fails()){
             return response()->json(['errors' => $error->errors()->all()]);
         }
+        $subject = Subject::where('id',$request->subjectid)->first();
+        // dd($subject);
+        if($subject->exams != null){
+            $examValue = 0;
+            foreach($subject->exams as $subjectExam){
+                $examValue = $examValue + $subjectExam->value;
+            }
+        }
+        if($examValue + $request->value <= 100){
+            // dd("lessthan");
+            $exam = Exam::create([
+                'name'        => $request->AssesementName,
+                'subject_id'  => $request->subjectid,
+                'value'       => $request->value
+            ]);
+            return response()->json(['success'=> 'Assesement has been created successfully.']); 
+        }
+        else{
+            return response()->json(['success'=> 'Error']); 
+        }
 
-        $exam = Exam::create([
-            'name'        => $request->AssesementName,
-            'subject_id'  => $request->subjectid
-        ]);
+        
 
-        return response()->json(['success'=> 'Assesement has been created successfully.']); 
+        
     }
 
     public function gradeReportSubjectDept($dept, $sub){

@@ -1,9 +1,9 @@
 
-<div class="modal fade" id="createAssesementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="examExamModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius:0px;">
         <div class="modal-header" style="width:100%;border-radius:0px; background-color:rgb(98, 177, 241);margin-left:-1px;">
-          <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Create Assesement</h5>
+          <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Edit Assesement</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" style="color: white;" >&times;</span>
           </button>

@@ -17,6 +17,7 @@ class CreateExamsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('subject_id');
+            $table->integer('value');
             $table->timestamps();
         });
     }
