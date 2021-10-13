@@ -260,7 +260,7 @@ class TeacherController extends Controller
         $studentSize = sizeOf($request->stud_id);
         $exam = Exam::find($request->examId);
         $examValue = $exam->value;
-        dd($examValue);
+        // dd($examValue);
         for($i=0 ; $i<$studentSize ; $i++){
             $exam->students()->updateExistingPivot($request->stud_id[$i], ['mark' => $request->ExamResult[$i]]);
         }
