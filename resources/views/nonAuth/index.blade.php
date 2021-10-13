@@ -21,18 +21,22 @@
                   <li data-target="#demo" data-slide-to="0" class="active"></li>
                   <li data-target="#demo" data-slide-to="1"></li>
                   <li data-target="#demo" data-slide-to="2"></li>
+                  <li data-target="#demo" data-slide-to="3"></li>
                 </ul>
                 
                 <!-- The slideshow -->
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img src="{{ asset('images/banner-final.jpg')}}"alt="slider one" width="1100">
+                    <img src="{{ asset('images/banner-final4.jpg')}}"alt="slider one" width="1100">
                   </div>
                   <div class="carousel-item">
-                    <img src="{{ asset('images/banner-final2.png')}}" alt="slider two" width="1100">
+                    <img src="{{ asset('images/banner-final2.jpg')}}" alt="slider two" width="1100">
                   </div>
                   <div class="carousel-item">
                     <img src="{{ asset('images/banner-final3.jpg')}}" alt="slider three" width="1100">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{ asset('images/banner-final5.jpg')}}" alt="slider three" width="1100">
                   </div>
                 </div>
                 
@@ -50,7 +54,7 @@
     <div class="container-fluid" style="margin-top:20px;">
         <div class="row">
             <div class="col-sm-7" >
-                <h3 style="color:#2B6CB0;margin-top:20px;padding-bottom:20px;">Welcome to Haromaya University</h3>
+                <h3 style="color:#2B6CB0;margin-top:20px;padding-bottom:20px;">Welcome to Haramaya University</h3>
                 <h5 style="color:#008000;"> Historical Background of the university</h5>
                 <h6 style="margin-top:10px;">
                     Historical Background of the University Haramaya University has gone through a series of transformations since its establishment as a higher learning institution. The agreement signed between the Imperial Ethiopian Government and the Government of the United States of America on May 15,1952 laid the foundations for the establishment of Jimma Agricultural and Technical School and the Imperial College of Agricultural and Mechanical
