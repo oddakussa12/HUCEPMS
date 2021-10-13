@@ -114,6 +114,7 @@ Route::post('/editSubjectInDepart', 'SubjectController@editSubjectPost')->name('
 Route::get('/addCourse', 'DepartementController@addSubjectToDepartement')->name('addCourse');
 // add course to departement post method
 Route::post('/addCoursePost', 'DepartementController@addSubjectToDepartementPost')->name('addCoursePost');
+Route::DELETE('/deleteCourse', 'DepartementController@deleteCourseFromDept')->name('deleteCourse');
 
 // route by the registarUsers
 // route to fetch all the applicants under specific collage

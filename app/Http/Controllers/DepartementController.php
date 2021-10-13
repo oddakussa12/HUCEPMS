@@ -142,4 +142,13 @@ class DepartementController extends Controller
         return redirect('/home')->with($notificationn);
     }
 
+    public function deleteCourseFromDept(Request $request){
+        $departement = Departement::where('head_user_id',Auth::user()->id)->first();
+        $subject = Subject::where('id',$request->subjectId)->first();
+        // dd($subject);
+        // dd($departement);
+        $departement->subjects()->detach($subject);
+        return redirect()->back();
+    }
+
 }

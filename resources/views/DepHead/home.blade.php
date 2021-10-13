@@ -46,7 +46,23 @@
                                 @endforeach
                                 
                                 <td>{{$subject->credit_hr}}</td>
-                                <td><a href="/editSubjectInDepart/{{$subject->id}}" class="btn btn-success btn-sm">Edit</a></td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-sm-6 text-right">
+                                            <a href="/editSubjectInDepart/{{$subject->id}}" class="btn btn-success btn-sm">Edit</a>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <form action="deleteCourse" method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                <input type="hidden" name="subjectId" value={{$subject->id}} />
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             @php
                                 $count++;
