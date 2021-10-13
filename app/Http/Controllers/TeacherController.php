@@ -244,6 +244,7 @@ class TeacherController extends Controller
             
 
         $exam->students()->sync($sync_data);
+        // return redirect()->back();
         return response()->json(['success'=> 'Exam result recorded successfully.']); 
     }
     public function bulkUpdateExamResult(Request $request){
@@ -260,7 +261,8 @@ class TeacherController extends Controller
         $studentSize = sizeOf($request->stud_id);
         $exam = Exam::find($request->examId);
         $examValue = $exam->value;
-        // dd($examValue);
+        
+
         for($i=0 ; $i<$studentSize ; $i++){
             $exam->students()->updateExistingPivot($request->stud_id[$i], ['mark' => $request->ExamResult[$i]]);
         }
