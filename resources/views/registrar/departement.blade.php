@@ -78,6 +78,7 @@
                         <th scope="col">Gender</th>
                         <th scope="col">Phone number</th>
                         <th scope="col">Email Address</th>
+                        <th>GPA</th>
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
@@ -92,6 +93,12 @@
                                 <td>{{$student->gender}}</td>
                                 <td>{{$student->phone}}</td>
                                 <td>{{$student->user->email}}</td>
+                                @if ($student->gpa != null)
+                                <td><span class="badge badge-info">{{$student->gpa->GPA}}</span></td>
+                                @else
+                                <td>NULL</td>
+                                @endif
+                                
                                 <td><a href="{{ route('student.edit',$student->id) }}" class="btn btn-success btn-sm">Edit</a></td>
                             </tr>
                             @php
