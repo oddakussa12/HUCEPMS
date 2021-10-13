@@ -226,6 +226,10 @@ class StudentController extends Controller
         }
         // dd($subjectGrades);
         $gpa = GPA::where('student_id',$student->id)->first();
+        // dd($gpa);
+        if($gpa != null){
+            // dd("not null");
+        }
     
         return view('student.gradeReport',compact('student','departement','subjects','gpa','subjectGrades'));
     }

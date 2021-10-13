@@ -84,8 +84,8 @@
                     <thead>
                         <tr>
                             <th>Exam Name</th>
-                            <th>Exam Weight</th>
-                            <th>Actions</th>
+                            <th class="text-center">Exam Weight</th>
+                            <th class="text-center">Actions</th>
                             {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
@@ -93,8 +93,8 @@
                         @foreach ($exams as $exam )
                             <tr>
                                 <td>{{$exam->name}}</td>
-                                <td>{{$exam->value}}</td>
-                                <td><a href="#" class="btn btn-primary btn-sm editExam" >Edit</a>
+                                <td class="text-center">{{$exam->value}}</td>
+                                <td class="text-center"><a href="#" data-subjectid ={{$subject->id}} data-examid={{$exam->id}} class="btn btn-primary btn-sm editExam" >Edit</a>
                                     <a href="#" class="btn btn-danger btn-sm" >Delete</a>
                                 </td>
                             </tr>
@@ -320,29 +320,33 @@
     });
 </script>
 
-{{-- script to edit exam --}}
+
+{{-- script to edit Assesement --}}
 <script>
     // show modal
     $('.editExam').click(function(){
-        $('#examExamModal').modal('show');
-        // get resource id
-        var resourceId = $(this).data("resoid");
-        // set the value of resource id to the hidden filed in edit resource modals
-        $('#resourceid').val(resourceId);
+        $('#editAssesementModal').modal('show');
+        // get the subject id
+        var examid = $(this).data("examid");
+        var subjectId = $(this).data("subjectid");
+        
+        // set the value of subject id to the hidden filed in add resource modals
+        $('#hiddennExamId').val(examid);
+        $('#hiddennSubjectId').val(subjectId);
 
         $tr = $(this).closest('tr');
         var data = $tr.children("td").map(function(){
             return $(this).text();
         }).get();
-        $('#ResourceName').val(data[1]);
-        $('#File').val(data[2]);
+        $('#AssesementName').val(data[0]);
+        $('#value').val(data[1]);
     });
     // implementation submit button cliced from modal
-    $('#edit_resource_form').on('submit', function(event){
+    $('#edit_assesement_form').on('submit', function(event){
         event.preventDefault();
-        if($('#editResourceButton').val() == 'Edit Resource'){
+        if($('#editAssesementButton').val() == 'Edit Assesement'){
             $.ajax({
-                url:"{{ route('update_resource') }}",
+                url:"{{ route('editassesement') }}",
                 method:"POST",
                 data: new FormData(this),
                 contentType:false,
@@ -351,7 +355,7 @@
                 dataType:'json',
                 beforeSend: function()
                 {   
-                    $('#editResourceButton').html('<i class="fa fa-circle-o-notch fa-spin"></i>');                            
+                    $('#editAssesementButton').html('<i class="fa fa-circle-o-notch fa-spin"></i>');                            
                 },
                 success:function(data){
                     var html = '';
@@ -361,18 +365,18 @@
                             html += '<p>' + data.errors[count] + '</p>';
                         }
                         html += '</div>';
-                        $('#editResourceButton').html('Update');
+                        $('#createAssesementButton').html('Submit');
                     }
                     if(data.success){
                         html = '<div class = "alert alert-success alert-block">'
                         + data.success + '<button type="button" class="close" data-dismiss="alert">x</button</div>';
                         // empty form field values  
-                        $('#edit_resource_form')[0].reset();
-                        $('#editResourceButton').html('Update');
+                        $('#edit_assesement_form')[0].reset();
+                        $('#editAssesementButton').html('Submit');
   
                     }
                     // render error or success message in html variable to span element with id value form_result
-                    $('#form_result_edit_resource').html(html);
+                    $('#form_result_edit_assesement').html(html);
                 }
             })
         }

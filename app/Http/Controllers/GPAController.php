@@ -106,7 +106,8 @@ class GPAController extends Controller
             $gpa->GPA = $semisterGPA;
             // dd($semisterGPA);
             $gpa->save();
-            return redirect('/home');
+            
         }//end students subject   
+        return redirect('/home');
     }
 }

@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="home">
+    @if ($gpa != null)
     <div class="row">
         <div class="col-sm-8">
             <h6 class="text-gray-700 uppercase font-bold">Grade report</h6>
@@ -11,8 +12,11 @@
             <a href="/student_courses" class="btn btn-secondary btn-sm" style="width:80px;">Back</a>
         </div>
     </div>
+    @endif
+    
         
     <div class="container-fluid" style="padding:0px;margin-top:30px;">
+        @if ($gpa != null)
         <div class="card">
             <div class="card-header">
                 <h6>Grade Report</h6>
@@ -62,6 +66,14 @@
                 </table>
             </div>
         </div>
+        @else
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 style="color:red;">Grade report is not released yet.</h3>
+            </div>
+        </div>
+        @endif
+        
     </div>
 </div>
 

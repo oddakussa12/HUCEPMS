@@ -303,6 +303,37 @@ class TeacherController extends Controller
         
     }
 
+    public function editAssesement(Request $request){
+        $rules = array(
+            'AssesementName' => 'required',
+            'value' => 'required',
+        );
+        
+        $exam = Exam::where('id',$request->examId)->first();
+        $subject = Subject::where('id',$request->subjectId)->first();
+
+        if($exam != null){
+            if($subject->exams != null){
+                $totalValue = 0 ;
+                foreach($subject->exams as $subjectExam){
+                    $totalValue = $totalValue + $subjectExam->value;
+                }
+                if($totalValue + $request->value - $exam->value <= 100){
+                    $exam->name = $request->AssesementName;
+                    $exam->value = $request->value;
+                    $exam->save();
+                    return response()->json(['success'=> 'Assesement has been updated successfully.']);
+                }else{
+                    return response()->json(['success'=> 'Failed! Total subject exam wight must not greaterthan 100.']); 
+                }
+            }
+            else{
+                return response()->json(['success'=> 'Edit operation failed for this subject']); 
+            }
+        }
+
+    }
+
     public function gradeReportSubjectDept($dept, $sub){
         $students = Student::where('departement_id',$dept)->get();
         $subject = Subject::where('id',$sub)->first();

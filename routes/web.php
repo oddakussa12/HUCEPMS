@@ -90,6 +90,9 @@ Route::post('/update_result', 'TeacherController@bulkUpdateExamResult')->name('u
 // route to create assesement
 Route::post('/createassesement', 'TeacherController@createAssesement')->name('createassesement');
 
+// route to create assesement
+Route::post('/editassesement', 'TeacherController@editAssesement')->name('editassesement');
+
 // generate grade report for specific subject and specific dept
 Route::get('/subDeptGR/{dept}/{sub}' , 'TeacherController@gradeReportSubjectDept')->name('subDeptGR');
 
